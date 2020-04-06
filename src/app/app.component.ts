@@ -7,4 +7,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'voice-list';
+  links = ['lists', 'about'];
+  activeLink = this.links[0];
 }

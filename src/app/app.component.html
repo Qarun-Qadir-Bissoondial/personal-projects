@@ -1,3 +1,17 @@
 <mat-toolbar color = 'primary'>
   <span>Voice List</span>
 </mat-toolbar>
+
+<main>
+  <router-outlet></router-outlet>
+</main>
+
+<nav mat-stretch-tabs mat-tab-nav-bar [backgroundColor]="background">
+  <a 
+    mat-tab-link
+    *ngFor = 'let link of links'
+    (click) = 'activeLink = link'
+    [active] = 'link === activeLink'>{{link | titlecase}}</a>
+
+</nav>
+
