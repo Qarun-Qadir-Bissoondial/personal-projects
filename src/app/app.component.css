@@ -1,4 +1,16 @@
 :host {
-    height: 100vh;
+    display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+
+main {
+  padding: 0 5vw;
+}
+
+nav {
+    flex: 0 0 48px;
+  margin-top: auto; /* pin footer to the bottom; see link below for details */
 }
 
