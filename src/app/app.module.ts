@@ -11,12 +11,15 @@ import { ListsComponent } from './lists/lists.component';
 import { AboutComponent } from './about/about.component';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
+import { SingleListComponent } from './single-list/single-list.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
     AppComponent,
     ListsComponent,
-    AboutComponent
+    AboutComponent,
+    SingleListComponent
   ],
   imports: [
     BrowserModule,
@@ -25,6 +28,7 @@ import { AppRoutingModule } from './app-routing.module';
     AppRoutingModule,
     MatToolbarModule,
     MatTabsModule,
+    MatIconModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],

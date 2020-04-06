@@ -1,0 +1,18 @@
+h2 {
+    margin: 4px 0 16px 0;
+    text-align: center;
+}
+
+.card-stats {
+    display: flex;
+    justify-content: space-between;
+}
+
+.stats {
+    display: flex;
+    align-items: center;
+}
+
+.stats mat-icon {
+    margin-right: 10px;
+}

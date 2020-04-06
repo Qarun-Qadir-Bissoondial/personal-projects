@@ -6,3 +6,28 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 nav .mat-ink-bar {
     top: 0 !important;
 }
+
+.card-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+    row-gap: 10px;
+    column-gap: 10px;
+    place-items: center;
+}
+
+.card {
+    border-radius: 8px;
+    width: 200px;
+    background-color: #F0F0F0;
+    padding: 10px;
+}
+
+@media screen and (min-width: 768px) {
+    .card-list {
+        grid-template-columns: repeat(auto-fit, minmax(325px, 1fr));
+    }
+
+    .card {
+        width: 300px;
+    }
+}
