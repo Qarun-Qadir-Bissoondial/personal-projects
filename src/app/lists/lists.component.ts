@@ -9,9 +9,10 @@ export class ListsComponent implements OnInit {
 
   lists: List[] = [
     {
-      name: 'List 1',
-      itemsCompleted: [],
-      itemsPending: [
+      name: 'Grocery List',
+      completed: 0,
+      pending: 3,
+      items: [
         {
           name: 'Fish',
           completed: false
@@ -27,19 +28,20 @@ export class ListsComponent implements OnInit {
       ]
     },
     {
-      name: 'List 2',
-      itemsCompleted: [],
-      itemsPending: [
+      name: 'Fruits to buy',
+      completed: 0,
+      pending: 3,
+      items: [
         {
-          name: 'Chicken',
+          name: 'Apples',
           completed: false
         },
         {
-          name: 'Water',
+          name: 'Ornages',
           completed: false
         },
         {
-          name: 'Celery',
+          name: 'Bananas',
           completed: false
         }
       ]

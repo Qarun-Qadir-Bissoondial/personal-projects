@@ -5,7 +5,8 @@ declare type Item = {
 
 declare type List = {
     name: string;
-    itemsCompleted: Item[];
-    itemsPending: Item[];
+    items: Item[];
+    completed: number;
+    pending: number;
 }
 
