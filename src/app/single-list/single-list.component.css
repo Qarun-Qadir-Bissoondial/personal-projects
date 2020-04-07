@@ -1,3 +1,13 @@
-:host {
-    background: #CCCCCC;
+.item-list {
+    display: flex;
+    flex-direction: column;
+}
+
+mat-checkbox {
+    padding: 8px;
+}
+
+.completed {
+    color: grey;
+    text-decoration: line-through;
 }

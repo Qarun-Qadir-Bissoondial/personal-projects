@@ -14,6 +14,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { SingleListComponent } from './single-list/single-list.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRippleModule } from '@angular/material/core';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { MatRippleModule } from '@angular/material/core';
     MatTabsModule,
     MatIconModule,
     MatRippleModule,
+    MatCheckboxModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],

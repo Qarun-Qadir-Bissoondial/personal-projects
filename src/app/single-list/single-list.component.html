@@ -1,5 +1,32 @@
 <h2>{{list.name}}</h2>
 
-<section *ngFor = 'let item of list.items'>
-    {{item.name}}
+<section class="item-list">
+    <mat-checkbox
+        matRipple
+        [disableRipple] = 'true'
+        labelPosition = 'before'
+        *ngFor = 'let item of list.items'
+        [checked] = 'item.completed'
+        (change) = 'updateItem(item, $event.checked)'>
+
+            <span [ngClass] = '{"completed": item.completed}'>{{item.name | titlecase}}</span>
+
+    </mat-checkbox>
 </section>
+
+
+
+<!-- <section *ngFor = 'let item of list.items'>
+    {{item.name}}
+</section> -->
+
+<!-- <mat-selection-list #checkList>
+    <mat-list-option *ngFor="let item of list.items" [selected] = 'item.completed'>
+      {{item.name | titlecase}}
+    </mat-list-option>
+  </mat-selection-list> -->
+  
+  <!-- <p>
+    Options selected: {{checkList.selectedOptions.selected.length}}
+  </p> -->
+  

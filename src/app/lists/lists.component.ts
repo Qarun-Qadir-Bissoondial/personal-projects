@@ -15,7 +15,7 @@ export class ListsComponent implements OnInit {
       items: [
         {
           name: 'Fish',
-          completed: false
+          completed: true
         },
         {
           name: 'Eggs',

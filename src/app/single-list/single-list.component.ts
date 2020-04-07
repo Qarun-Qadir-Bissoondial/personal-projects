@@ -23,6 +23,11 @@ export class SingleListComponent implements OnDestroy {
       this.storage.save('current-list', this.list);
   }
 
+  updateItem(selectedItem: Item, value: boolean) {
+    selectedItem.completed = value;
+    // update the model
+  }
+
   ngOnDestroy(): void {
     this.storage.delete('current-list');
   }
