@@ -1,6 +1,7 @@
 import { StorageService } from './../services/storage.service';
 import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { SpeechRecogService } from '../services/speech-recog.service';
 
 @Component({
   selector: 'app-single-list',
@@ -12,7 +13,8 @@ export class SingleListComponent implements OnDestroy {
 
   constructor(
     private router: Router,
-    private storage: StorageService) {
+    private storage: StorageService,
+    private speech: SpeechRecogService) {
     
       const list = this.router.getCurrentNavigation().extras.state as List;
       
@@ -30,6 +32,14 @@ export class SingleListComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.storage.delete('current-list');
+  }
+  
+  start() {
+    this.speech.start();
+  }
+
+  stop() {
+    this.speech.stop();
   }
 
 }
