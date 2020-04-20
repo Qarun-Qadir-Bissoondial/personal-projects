@@ -1,6 +1,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { RouterTestingModule } from '@angular/router/testing';
 import { SingleListComponent } from './single-list.component';
+import { generateFakeList } from 'src/testing/fake-gen';
+import { Router } from '@angular/router';
+
+class RouterWithExtras {
+  getCurrentNavigation() {
+    return {
+      extras: {
+        state: generateFakeList('Grocery List')
+      }
+    }
+  }
+}
 
 describe('SingleListComponent', () => {
   let component: SingleListComponent;
@@ -8,7 +20,11 @@ describe('SingleListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SingleListComponent ]
+      declarations: [ SingleListComponent ],
+      imports: [RouterTestingModule],
+      providers: [
+        { provide: Router, useClass: RouterWithExtras }
+      ]
     })
     .compileComponents();
   }));
