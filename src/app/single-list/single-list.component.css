@@ -3,7 +3,7 @@
     flex-direction: column;
 }
 
-mat-checkbox {
+.item-list div {
     padding: 8px;
 }
 
