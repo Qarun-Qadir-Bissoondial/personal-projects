@@ -27,8 +27,8 @@ export class SpeechRecogService {
     this.grammerList.addFromString(this.grammer, 1);
     this.recognizer.grammars = this.grammerList;
     this.recognizer.lang = 'en-US';
-    this.recognizer.interimResults = true;
-    this.recognizer.continuous = true;
+    this.recognizer.interimResults = false;
+    this.recognizer.continuous = false;
 
     // onresult event
     // onspeechend event
@@ -41,7 +41,11 @@ export class SpeechRecogService {
     this.recognizer.onerror = () => { this.error = event['error']; this.showError = true; }
 
     this.recognizer.onresult = (result) => {
-      console.log(result);
+      console.log(result['results'][0]);
+    }
+
+    this.recognizer.onspeechend = () => {
+      this.recognizer.stop();
     }
 
     console.log(this.recognizer);

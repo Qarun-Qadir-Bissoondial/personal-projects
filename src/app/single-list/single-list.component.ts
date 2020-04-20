@@ -10,6 +10,7 @@ import { SpeechRecogService } from '../services/speech-recog.service';
 })
 export class SingleListComponent implements OnDestroy {
   list: List;
+  completedPercentage: number;
 
   constructor(
     private router: Router,
@@ -21,6 +22,8 @@ export class SingleListComponent implements OnDestroy {
       this.list = !list
         ? this.storage.get<List>('current-list')
         : list;
+
+      this.completedPercentage = (this.list.completed * 100) / (this.list.completed + this.list.pending);
 
       this.storage.save('current-list', this.list);
   }
