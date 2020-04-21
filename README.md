@@ -1,27 +1,22 @@
 # VoiceList
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.1.
+This project allows a user to add, remove or edit items from a list using only their voice.
 
-## Development server
+## Running project
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run the project locally on your machine with the following steps:
+ - Clone Repo
+ - `npm install` dependencies
+ - `ng serve`
 
-## Code scaffolding
+## User Features (either available or planned for the future)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+ - Add, remove, edit items from a list
+ - Add a new list
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Development Features
+ - State Management with RxJS
+ - Encryption
+ - Local storage
+ - Web Speech API
+ - Firebase
