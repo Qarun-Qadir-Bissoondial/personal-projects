@@ -1,11 +1,8 @@
-declare type Item = {
-    name: string;
-    completed: boolean;
-}
+declare type Item = { [key: string]: boolean };
 
 declare type List = {
     name: string;
-    items: Item[];
+    items: Item;
     completed: number;
     pending: number;
 }

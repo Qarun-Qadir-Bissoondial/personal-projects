@@ -45,4 +45,33 @@ export class SingleListComponent implements OnDestroy {
     this.speech.stop();
   }
 
+  addItem(itemName: string): void {
+    if (itemName in this.list.items) { return; }
+
+    this.list.items[itemName] = false;
+    this.list.pending++;
+  }
+
+  markAsCompleted(itemName: string): void {
+    if (this.list.items[itemName] === true) { return; }
+
+    this.list.items[itemName] = true;
+    this.list.pending--;
+    this.list.completed++;
+  }
+
+  removeItem(itemName: string): void {
+    if (!(itemName in this.list.items)) { return; }
+
+    const completed = this.list.items[itemName];
+
+    completed
+      ? this.list.completed--
+      : this.list.pending--;
+
+    delete this.list.items[itemName];
+  }
+
+  // undo() {} PHASE 2
+
 }
