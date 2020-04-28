@@ -72,6 +72,10 @@ export class SingleListComponent implements OnDestroy {
     delete this.list.items[itemName];
   }
 
+  toggle(item) {
+    console.log(item);
+  }
+
   // undo() {} PHASE 2
 
 }

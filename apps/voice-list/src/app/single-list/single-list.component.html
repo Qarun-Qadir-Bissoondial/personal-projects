@@ -1,12 +1,12 @@
 <h2>{{list.name}}</h2>
 
 <section class="item-list">
-    <div *ngFor = 'let item of list.items | keyvalue' matRipple>
+    <div *ngFor = 'let item of list.items | keyvalue' (click) = 'checkbox.toggle(); toggle(item)' matRipple>
         <mat-checkbox
+        #checkbox
         [disableRipple] = 'true'
         labelPosition = 'before'
-        [checked] = 'item.completed'
-        (change) = 'updateItem(item, $event.checked)'>
+        [checked] = 'item.value'>
 
             <span [ngClass] = '{"completed": item.value}'>{{item.key | titlecase}}</span>
 

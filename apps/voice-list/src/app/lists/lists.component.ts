@@ -1,3 +1,4 @@
+import { generateFakeList } from './../../testing/fake-gen';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class ListsComponent implements OnInit {
 
   lists: List[] = [
+    generateFakeList('Grocery List')
     // {
     //   name: 'Grocery List',
     //   completed: 0,

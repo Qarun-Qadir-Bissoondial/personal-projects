@@ -1,32 +1,32 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
-  "newProjectRoot": "projects",
+  "newProjectRoot": "",
   "projects": {
     "voice-list": {
       "projectType": "application",
       "schematics": {},
-      "root": "",
-      "sourceRoot": "src",
+      "root": "apps/voice-list",
+      "sourceRoot": "apps/voice-list/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/",
-            "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.app.json",
+            "outputPath": "dist/apps/voice-list",
+            "index": "apps/voice-list/src/index.html",
+            "main": "apps/voice-list/src/main.ts",
+            "polyfills": "apps/voice-list/src/polyfills.ts",
+            "tsConfig": "apps/voice-list/tsconfig.app.json",
             "aot": true,
             "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              "src/manifest.webmanifest"
+              "apps/voice-list/src/favicon.ico",
+              "apps/voice-list/src/assets",
+              "apps/voice-list/src/manifest.webmanifest"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.css"
+              "apps/voice-list/src/styles.css"
             ],
             "scripts": []
           },
@@ -34,8 +34,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "replace": "apps/voice-list/src/environments/environment.ts",
+                  "with": "apps/voice-list/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -83,18 +83,18 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.spec.json",
-            "karmaConfig": "karma.conf.js",
+            "main": "apps/voice-list/src/test.ts",
+            "polyfills": "apps/voice-list/src/polyfills.ts",
+            "tsConfig": "apps/voice-list/tsconfig.spec.json",
+            "karmaConfig": "apps/voice-list/karma.conf.js",
             "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              "src/manifest.webmanifest"
+              "apps/voice-list/src/favicon.ico",
+              "apps/voice-list/src/assets",
+              "apps/voice-list/src/manifest.webmanifest"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.css"
+              "apps/voice-list/src/styles.css"
             ],
             "scripts": []
           }
@@ -103,25 +103,39 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
+              "apps/voice-list/tsconfig.app.json",
+              "apps/voice-list/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
             ]
           }
-        },
+        }
+      }
+    },
+    "voice-list-e2e": {
+      "projectType": "application",
+      "root": "apps/voice-list-e2e",
+      "architect": {
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
+            "protractorConfig": "apps/voice-list-e2e/protractor.conf.js",
             "devServerTarget": "voice-list:serve"
           },
           "configurations": {
             "production": {
               "devServerTarget": "voice-list:serve:production"
             }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "apps/voice-list-e2e/tsconfig.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
