@@ -1,0 +1,31 @@
+{
+  "npmScope": "qarun-qb",
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": "*",
+    "tsconfig.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "projects": {
+    "voice-list": {
+      "tags": []
+    },
+    "voice-list-e2e": {
+      "tags": []
+    },
+    "tt-pothole-report": {
+      "tags": []
+    },
+    "tt-pothole-report-e2e": {
+      "tags": [],
+      "implicitDependencies": ["tt-pothole-report"]
+    },
+    "tt-pothole-backend": {
+      "tags": []
+    },
+    "voice-list-backend": {
+      "tags": []
+    }
+  }
+}
