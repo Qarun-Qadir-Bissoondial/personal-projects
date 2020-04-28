@@ -26,6 +26,9 @@
     },
     "voice-list-backend": {
       "tags": []
+    },
+    "pothole-interface": {
+      "tags": []
     }
   }
 }

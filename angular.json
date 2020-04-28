@@ -370,6 +370,32 @@
           }
         }
       }
+    },
+    "pothole-interface": {
+      "root": "libs/pothole-interface",
+      "sourceRoot": "libs/pothole-interface/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/pothole-interface/tsconfig.lib.json",
+              "libs/pothole-interface/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/pothole-interface/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/pothole-interface/jest.config.js",
+            "tsConfig": "libs/pothole-interface/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "defaultProject": "voice-list",
