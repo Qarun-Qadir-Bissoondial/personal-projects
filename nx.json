@@ -1,5 +1,5 @@
 {
-  "npmScope": "voice-list",
+  "npmScope": "qarun-qb",
   "implicitDependencies": {
     "angular.json": "*",
     "package.json": "*",
@@ -12,6 +12,19 @@
       "tags": []
     },
     "voice-list-e2e": {
+      "tags": []
+    },
+    "tt-pothole-report": {
+      "tags": []
+    },
+    "tt-pothole-report-e2e": {
+      "tags": [],
+      "implicitDependencies": ["tt-pothole-report"]
+    },
+    "tt-pothole-backend": {
+      "tags": []
+    },
+    "voice-list-backend": {
       "tags": []
     }
   }
