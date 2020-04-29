@@ -23,14 +23,20 @@ export class SingleListComponent implements OnDestroy {
         ? this.storage.get<List>('current-list')
         : list;
 
-      this.completedPercentage = (this.list.completed * 100) / (this.list.completed + this.list.pending);
+      this.calculatePercentage();
 
       this.storage.save('current-list', this.list);
   }
 
-  updateItem(selectedItem: Item, value: boolean) {
-    selectedItem.completed = value;
-    // update the model
+  calculatePercentage() {
+    this.completedPercentage = (this.list.completed * 100) / (this.list.completed + this.list.pending);
+  }
+
+  updateItem(itemName: string, value: boolean) {
+    value
+    ? this.markAsCompleted(itemName)
+    : this.markAsIncomplete(itemName);
+
   }
 
   ngOnDestroy(): void {
@@ -50,6 +56,7 @@ export class SingleListComponent implements OnDestroy {
 
     this.list.items[itemName] = false;
     this.list.pending++;
+    this.calculatePercentage();
   }
 
   markAsCompleted(itemName: string): void {
@@ -58,6 +65,15 @@ export class SingleListComponent implements OnDestroy {
     this.list.items[itemName] = true;
     this.list.pending--;
     this.list.completed++;
+    this.calculatePercentage();
+  }
+
+  markAsIncomplete(itemName: string): void {
+    if (this.list.items[itemName] === false) { return; }
+    this.list.items[itemName] = false;
+    this.list.pending++;
+    this.list.completed--;
+    this.calculatePercentage();
   }
 
   removeItem(itemName: string): void {
@@ -70,10 +86,15 @@ export class SingleListComponent implements OnDestroy {
       : this.list.pending--;
 
     delete this.list.items[itemName];
+    this.calculatePercentage();
   }
 
   toggle(item) {
     console.log(item);
+  }
+
+  trackFn(index, item) {
+    return index;
   }
 
   // undo() {} PHASE 2
