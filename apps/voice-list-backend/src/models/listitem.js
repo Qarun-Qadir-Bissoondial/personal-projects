@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const ListItem = sequelize.define('ListItem', {
-    uuid: DataTypes.UUID,
+    uuid: { type: DataTypes.UUID, primaryKey: true },
     itemname: DataTypes.STRING,
     completed: DataTypes.BOOLEAN
   }, {});
