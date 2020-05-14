@@ -27,17 +27,17 @@ nav .mat-ink-bar {
     cursor: pointer;
 }
 
-.mat-checkbox-layout {
+/* .mat-checkbox-layout {
     width: 100%;
-}
-
-.item-list .mat-checkbox-label-before .mat-checkbox-inner-container {
-    margin-right: 0;
 }
 
 .item-list .mat-checkbox-layout .mat-checkbox-label {
     width: 100%;
 }
+
+.list-item .mat-checkbox-label-before .mat-checkbox-inner-container {
+    margin-right: 0;
+} */
 
 @media screen and (min-width: 768px) {
     .card-list {
