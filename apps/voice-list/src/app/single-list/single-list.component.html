@@ -7,7 +7,7 @@
     (click) = 'updateItem(item.key, !item.value)'>
     <span style = 'margin-top: 6px'>{{item.key | titlecase}}</span>
 
-    <button mat-icon-button>
+    <button [disableRipple] = 'true' mat-icon-button>
         <mat-icon [ngClass] = '{"icon-completed": item.value}'>{{item.value ? "done" : "check_box_outline_blank"}}</mat-icon>
     </button>
 
@@ -15,7 +15,5 @@
 
 <mat-progress-bar style = 'margin: 10px 0;' mode="determinate" [value]="completedPercentage"></mat-progress-bar>
 
-<button color = 'primary' mat-flat-button (click) = 'start()'>Start Listening!</button>
-<button color = 'primary' mat-flat-button (click) = 'stop()'>Stop Listening!</button>
-
-
+<!-- <button color = 'primary' mat-flat-button (click) = 'start()'>Start Listening!</button> -->
+<!-- <button color = 'primary' mat-flat-button (click) = 'stop()'>Stop Listening!</button> -->

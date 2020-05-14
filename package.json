@@ -9,7 +9,7 @@
     "lint": "nx workspace-lint && ng lint",
     "e2e": "ng e2e",
     "build-and-serve-prod": "ng build --prod && http-server ./dist",
-    "start-prod": "http-server ./dist",
+    "start-prod": "http-server ./dist/apps/voice-list",
     "nx": "nx",
     "affected:apps": "nx affected:apps",
     "affected:libs": "nx affected:libs",

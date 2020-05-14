@@ -30,26 +30,15 @@ export class SpeechRecogService {
     this.recognizer.interimResults = false;
     this.recognizer.continuous = false;
 
-    // onresult event
-    // onspeechend event
-    // onerror
-
     this.recognizer.onstart = () => { console.log('started'); }
     this.recognizer.onsoundstart = (event) => { console.log(event); }
     this.recognizer.onaudiostart = (event) => { console.log(event); }
 
     this.recognizer.onerror = () => { this.error = event['error']; this.showError = true; }
 
-    this.recognizer.onresult = (result) => {
-      console.log(result['results'][0]);
-    }
-
     this.recognizer.onspeechend = () => {
       this.recognizer.stop();
     }
-
-    console.log(this.recognizer);
-    console.log(this.grammerList);
 
 
   }

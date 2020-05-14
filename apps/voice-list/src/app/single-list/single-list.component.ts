@@ -1,5 +1,5 @@
 import { StorageService } from './../services/storage.service';
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { SpeechRecogService } from '../services/speech-recog.service';
 
@@ -15,7 +15,8 @@ export class SingleListComponent implements OnDestroy {
   constructor(
     private router: Router,
     private storage: StorageService,
-    private speech: SpeechRecogService) {
+    private speech: SpeechRecogService,
+    private changeRef: ChangeDetectorRef) {
     
       const list = this.router.getCurrentNavigation().extras.state as List;
       
@@ -26,6 +27,23 @@ export class SingleListComponent implements OnDestroy {
       this.calculatePercentage();
 
       this.storage.save('current-list', this.list);
+
+      this.speech.recognizer.onresult = (event: SpeechRecognitionEvent) => {
+        const speechResult = event.results[0][0].transcript.toLocaleLowerCase();
+        
+        if (!(speechResult in this.list.items)) {
+          console.log(`${speechResult} not found in list`);
+        } else {
+          const completed = this.list.items[speechResult];
+
+          completed 
+            ? this.markAsIncomplete(speechResult)
+            : this.markAsCompleted(speechResult);
+
+          console.log('Finished');
+          this.changeRef.detectChanges();
+        }
+      }
   }
 
   calculatePercentage() {
