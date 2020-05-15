@@ -1,7 +1,9 @@
 import * as express from 'express';
 import { authRouter } from './routes/auth';
+import * as helmet from 'helmet';
 
 const app = express();
+app.use(helmet());
 app.use(express.json());
 app.use('/auth', authRouter)
 
