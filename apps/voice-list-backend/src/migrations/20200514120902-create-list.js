@@ -10,7 +10,8 @@ module.exports = {
       },
       listname: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
       },
       completed: {
         type: Sequelize.INTEGER,
@@ -20,13 +21,24 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false
       },
+      userId: {
+        type: Sequelize.UUID,
+        allowNull: false,
+        unique: true,
+        references: {
+          model: 'Users',
+          key: 'uuid'
+        }
+      },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal("(now() at time zone 'utc')")
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal("(now() at time zone 'utc')")
       }
     })
   },

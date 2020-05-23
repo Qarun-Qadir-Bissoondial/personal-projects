@@ -7,4 +7,4 @@ export const stripFields = (fields: string[]) => (obj: object) => {
     return newObj
   }
   
-export const stripDbFields = stripFields(['uuid', 'createdAt', 'updatedAt']);
+export const stripDbFields = stripFields(['createdAt', 'updatedAt']);

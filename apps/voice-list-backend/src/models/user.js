@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     uuid: {type: DataTypes.UUID, primaryKey: true, defaultValue: sequelize.Sequelize.UUIDV4}
   }, {});
   User.associate = function(models) {
-    // associations can be defined here
+    User.hasMany(models.List, { foreignKey: 'userId' })
   };
   return User;
 };

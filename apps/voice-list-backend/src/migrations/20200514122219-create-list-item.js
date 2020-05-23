@@ -6,6 +6,7 @@ module.exports = {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
+        unique: true,
         defaultValue: Sequelize.literal('uuid_generate_v4()')
       },
       itemname: {
@@ -16,13 +17,24 @@ module.exports = {
         allowNull: false,
         type: Sequelize.BOOLEAN
       },
+      listId: {
+        type: Sequelize.UUID,
+        allowNull: false,
+        unique: true,
+        references: {
+          model: 'Lists',
+          key: 'uuid'
+        }
+      },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal("(now() at time zone 'utc')")
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal("(now() at time zone 'utc')")
       }
     })
   },

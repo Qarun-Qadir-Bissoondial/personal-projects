@@ -8,8 +8,8 @@ module.exports = {
             type: Sequelize.UUID,
             allowNull: false,
             primaryKey: true,
-            defaultValue: Sequelize.UUIDV4
-            // defaultValue: Sequelize.literal('uuid_generate_v4()')
+            unique: true,
+            defaultValue: Sequelize.literal('uuid_generate_v4()')
           },
           firstname: {
             type: Sequelize.STRING,
@@ -21,7 +21,8 @@ module.exports = {
           },
           email: {
             type: Sequelize.STRING,
-            allowNull: false
+            allowNull: false,
+            unique: true
           },
           password: {
             type: Sequelize.STRING,
