@@ -1,1 +1,13 @@
-<p>orders works!</p>
+<h2 style = 'margin-top: 16px;'>Current Orders</h2>
+
+<ng-container *ngIf = 'orders.length > 0; else noOrders'>
+
+</ng-container>
+
+<ng-template #noOrders>
+    <section class="no-orders">
+        <h3>No Orders at this time</h3>
+        <button color = 'primary' mat-raised-button routerLink = '/create-order'>Create Order</button>
+    </section>
+    
+</ng-template>
