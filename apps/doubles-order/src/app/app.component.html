@@ -10,14 +10,15 @@
     <a
         mat-tab-link
         *ngFor="let link of links"
-        (click)="activeLink = link.route"
-        [active]="activeLink == link.route"
-        [routerLink] = 'link.route'>
+        [routerLink] = 'link.route'
+        [active] = 'active === link.route'
+        routerLinkActive = 'active'>
 
             <mat-icon>{{link.icon}}</mat-icon>
             <span style = 'margin-left: 10px;'>{{link.title}}</span>
 
     </a>
-  </nav>
+
+</nav>
       
 

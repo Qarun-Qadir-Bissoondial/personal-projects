@@ -9,8 +9,10 @@ import { Component } from '@angular/core';
 export class OrdersComponent {
   orders: Order[];
 
-  constructor(private order: OrdersService) {
-    this.orders = this.order.getOrders();
+  constructor(
+    private order: OrdersService) {
+
+      this.orders = this.order.getOrders();
   }
 
 }

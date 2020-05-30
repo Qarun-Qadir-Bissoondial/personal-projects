@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormArray, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'doubles-create-order',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateOrderComponent implements OnInit {
 
-  constructor() { }
+  orderForm: FormArray;
+
+  constructor(private fb: FormBuilder) {
+      this.orderForm = this.fb.array([]);
+  }
 
   ngOnInit(): void {
   }
