@@ -11,7 +11,6 @@ import { MatDialog } from '@angular/material/dialog';
 export class CreateOrderComponent {
 
   order: FormGroup;
-  singleDoubles: FormGroup;
 
   constructor(private fb: FormBuilder, private dialog: MatDialog) {
     this.order = this.fb.group({
@@ -20,17 +19,20 @@ export class CreateOrderComponent {
     });
   }
 
-  // addDoubles() {
-  //   (this.order.controls['doubles'] as FormArray).push(this.fb.group(this.singleDoubles.value));
-  //   console.log(this.order);
-  // }
+  addDoubles(config: DoublesConfig) {
+    (this.order.controls['doubles'] as FormArray).push(this.fb.group(config));
+  }
 
   createOrder() {
     this.dialog.open(
       DoublesConfigComponent,
       {
         panelClass: 'create-order'
-      }).afterClosed().subscribe(console.log, console.error);
+      }).afterClosed().subscribe((data: DoublesConfig) => {
+        if (data) {
+          this.addDoubles(data);
+        }
+      }, console.error);
   }
 
 }

@@ -7,6 +7,14 @@
     margin: 0 auto;
 }
 
-.single-doubles {
-    padding: 10px 0;
+.all-orders {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.single-order {
+    padding: 10px;
+    margin: 10px auto;
+    border: 1px solid #f2f2f2;
+    border-radius: 8px;
 }

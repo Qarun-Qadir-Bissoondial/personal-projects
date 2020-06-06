@@ -16,14 +16,15 @@
         mat-raised-button
         style = 'margin-top: 20px;'
         (click) = 'createOrder()'>Add Doubles</button>
-
-
-    <ng-container *ngIf = 'order.controls["doubles"]["controls"] as doublesControls'>
-        <ng-container *ngFor = 'let control of doublesControls; index as i'>
-            <section [formControl] = "doublesControls[i]">
-                {{doublesControls[i].value | json}}
-            </section>
-
+    
+    <section class = 'all-orders'>
+        <ng-container *ngIf = 'order.controls["doubles"] as doublesControls'>
+            <ng-container *ngIf = 'doublesControls.value.length > 0'>
+                <section class = 'single-order mat-elevation-z2' *ngFor = 'let control of doublesControls.value'>
+                    {{control | json}}
+                </section>
+            </ng-container>
         </ng-container>
-    </ng-container>
+    </section>
+    
 </form>
