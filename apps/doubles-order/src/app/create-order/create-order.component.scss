@@ -1,3 +1,25 @@
 :host {
     text-align: center;
 }
+
+.order-field {
+    width: 80vw;
+    margin: 0 auto;
+}
+
+.single-doubles {
+    padding: 10px 0;
+}
+
+.single-doubles-checkboxes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    place-items: flex-start;
+    row-gap: 10px;
+    margin: 20px 5vw;
+}
+
+mat-radio-group {
+    display: flex;
+    justify-content: space-evenly;
+}

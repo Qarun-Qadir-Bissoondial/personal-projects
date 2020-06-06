@@ -21,4 +21,5 @@ declare type Doubles = {
     cucumber: boolean;
     kutchela: boolean;
     roastPepper: boolean;
+    bandania: boolean;
 }

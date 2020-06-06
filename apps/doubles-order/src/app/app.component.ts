@@ -23,7 +23,6 @@ export class AppComponent implements OnDestroy {
       .pipe(filter(e => e instanceof NavigationStart))
       .subscribe((event: NavigationStart) => {
         this.active = event.url;
-        console.log(this.active);
       });
   }
 

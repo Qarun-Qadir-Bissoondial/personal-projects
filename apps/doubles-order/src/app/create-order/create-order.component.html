@@ -1,4 +1,60 @@
 <header>
-    <h2 style = 'margin-top: 16px;'>Order Doubles</h2>
-    <button mat-raised-button color = 'primary'>Create order</button>
+    <h2 style = 'margin-top: 16px;'>Create your order</h2>
 </header>
+
+<form [formGroup] = 'order'>
+    <mat-form-field class = 'order-field'>
+        <mat-label>Person Name</mat-label>
+        <mat-hint>Who's making the order?</mat-hint>
+        <input matInput required formControlName = 'name'>
+        <mat-error>Name is required!</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class = 'order-field'>
+        <mat-label>Amount</mat-label>
+        <mat-hint>How much doubles do you want?</mat-hint>
+        <input matInput required formControlName = 'amount'>
+        <mat-error>Amount is required</mat-error>
+    </mat-form-field>
+
+    <form class = 'single-doubles' [formGroup] = 'singleDoubles'>
+        <p>Customize your doubles</p>
+        <section class="single-doubles-checkboxes">
+            <mat-checkbox formControlName = 'channa' required>Channa</mat-checkbox>
+            <mat-checkbox formControlName = 'triples' required>Triples</mat-checkbox>
+            <mat-checkbox formControlName = 'sweetSauce' required>Sweet Sauce</mat-checkbox>
+            <mat-checkbox formControlName = 'coconut' required>Coconut</mat-checkbox>
+            <mat-checkbox formControlName = 'pepper' required>Pepper</mat-checkbox>
+            <mat-checkbox formControlName = 'cucumber' required>Cucumber</mat-checkbox>
+            <mat-checkbox formControlName = 'kutchela' required>Kutchela</mat-checkbox>
+            <mat-checkbox formControlName = 'roastPepper' required>Roast Pepper</mat-checkbox>
+            <mat-checkbox formControlName = 'bandania' required>Bandania</mat-checkbox>
+        </section>
+        
+        <p>Pepper</p>
+        <mat-radio-group aria-label="How much pepper?">
+            <mat-radio-button value="none">None</mat-radio-button>
+            <mat-radio-button value="slight">Slight</mat-radio-button>
+            <mat-radio-button value="medium">Medium</mat-radio-button>
+            <mat-radio-button value="Heavy">Heavy</mat-radio-button>
+        </mat-radio-group>    
+
+    </form>
+
+    <button 
+        type = 'button'
+        color = 'primary'
+        mat-raised-button
+        style = 'margin-top: 20px;'
+        (click) = 'addDoubles()'>Add Doubles</button>
+
+
+    <ng-container *ngIf = 'order.controls["doubles"]["controls"] as doublesControls'>
+        <ng-container *ngFor = 'let control of doublesControls; index as i'>
+            <section [formControl] = "doublesControls[i]">
+                {{doublesControls[i].value | json}}
+            </section>
+
+        </ng-container>
+    </ng-container>
+</form>
