@@ -7,12 +7,12 @@ declare type AppLink = {
 
 declare type Order = {
     name: string;
-    amount: number;
-    cost: number;
-    doubles: Doubles[]
+    totalCost: number;
+    orders: DoublesConfig[]
 }
 
-declare type Doubles = {
+declare type DoublesConfig = {
+    amount: number;
     channa: boolean; // default to true
     triples: boolean;
     sweetSauce: boolean;
@@ -22,4 +22,5 @@ declare type Doubles = {
     kutchela: boolean;
     roastPepper: boolean;
     bandania: boolean;
+    cost: number;
 }

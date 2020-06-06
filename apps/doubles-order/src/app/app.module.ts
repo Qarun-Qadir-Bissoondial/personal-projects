@@ -15,6 +15,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
+import { DoublesConfigComponent } from './doubles-config/doubles-config.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const routes: Routes = [
   { path: '', component: OrdersComponent },
@@ -27,7 +29,8 @@ const routes: Routes = [
     AppComponent,
     OrdersComponent,
     AboutComponent,
-    CreateOrderComponent
+    CreateOrderComponent,
+    DoublesConfigComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,8 @@ const routes: Routes = [
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,
-    MatRadioModule
+    MatRadioModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
