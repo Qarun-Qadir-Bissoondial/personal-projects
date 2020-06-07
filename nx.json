@@ -29,6 +29,13 @@
     },
     "pothole-interface": {
       "tags": []
+    },
+    "useful-random": {
+      "tags": []
+    },
+    "useful-random-e2e": {
+      "tags": [],
+      "implicitDependencies": ["useful-random"]
     }
   }
 }
