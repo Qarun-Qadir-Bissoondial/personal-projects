@@ -9,7 +9,11 @@ import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent }
+  { path: 'home', component: HomeComponent },
+  { path: 'dice', loadChildren: () => import('./dice/dice.module').then(m => m.DiceModule) },
+  { path: 'coin-toss', loadChildren: () => import('./coin-toss/coin-toss.module').then(m => m.CoinTossModule) },
+  { path: 'number-range', loadChildren: () => import('./number-range/number-range.module').then(m => m.NumberRangeModule) },
+  { path: 'rock-paper-scissors', loadChildren: () => import('./rock-paper-scissors/rock-paper-scissors.module').then(m => m.RockPaperScissorsModule) },
 ];
 
 @NgModule({
