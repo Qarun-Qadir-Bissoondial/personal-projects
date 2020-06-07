@@ -13,14 +13,17 @@ declare type Order = {
 
 declare type DoublesConfig = {
     amount: number;
-    channa: boolean; // default to true
-    triples: boolean;
-    sweetSauce: boolean;
-    coconut: boolean;
-    pepper: 'none' | 'slight' | 'medium' | 'heavy';
-    cucumber: boolean;
-    kutchela: boolean;
-    roastPepper: boolean;
-    bandania: boolean;
     cost: number;
+    triples: boolean;
+    pepper: 'none' | 'slight' | 'medium' | 'heavy';
+    toppings: {
+        channa: boolean; // default to true
+        sweetSauce: boolean;
+        coconut: boolean;
+        cucumber: boolean;
+        kutchela: boolean;
+        roastPepper: boolean;
+        bandania: boolean;
+        
+    }
 }

@@ -17,6 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { DoublesConfigComponent } from './doubles-config/doubles-config.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { SeparateCamelCasePipe } from './separate-camel-case.pipe';
 
 const routes: Routes = [
   { path: '', component: OrdersComponent },
@@ -30,7 +31,8 @@ const routes: Routes = [
     OrdersComponent,
     AboutComponent,
     CreateOrderComponent,
-    DoublesConfigComponent
+    DoublesConfigComponent,
+    SeparateCamelCasePipe
   ],
   imports: [
     BrowserModule,

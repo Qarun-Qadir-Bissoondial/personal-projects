@@ -15,16 +15,19 @@ export class DoublesConfigComponent {
     private ref: MatDialogRef<DoublesConfigComponent>,
     private fb: FormBuilder) {
       this.singleDoubles = this.fb.group({
-        amount: this.fb.control('', Validators.required),
-        channa: this.fb.control(true), // default to true
-        triples: this.fb.control(''),
-        sweetSauce: this.fb.control(''),
-        coconut: this.fb.control(''),
+        amount: this.fb.control('', [Validators.required, Validators.min(1)]),
+        triples: this.fb.control(false, [Validators.required]),
+        toppings: this.fb.group({
+          channa: this.fb.control(true), // default to true
+          sweetSauce: this.fb.control(''),
+          coconut: this.fb.control(''),
+          cucumber: this.fb.control(''),
+          kutchela: this.fb.control(''),
+          roastPepper: this.fb.control(''),
+          bandania: this.fb.control('')
+        }),
         pepper: this.fb.control('', Validators.required),
-        cucumber: this.fb.control(''),
-        kutchela: this.fb.control(''),
-        roastPepper: this.fb.control(''),
-        bandania: this.fb.control('')
+        
       });
 
       if (this.data) {

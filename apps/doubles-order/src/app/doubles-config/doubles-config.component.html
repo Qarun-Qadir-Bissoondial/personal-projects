@@ -1,19 +1,29 @@
 <h2 style = 'margin: 4px 0 8px 0'>Create your order</h2>
-<p class = 'mat-caption'>(Hint: All doubles in this group will have the same toppings!)</p>
+<p class = 'mat-caption'>(Hint: All doubles/triples in this group will have the same toppings!)</p>
 
-<form class = 'single-doubles' [formGroup] = 'singleDoubles'>
-    <h3>How many doubles do you want?</h3>
-    <mat-form-field class = 'order-field'>
-        <mat-label>Amount</mat-label>
-        <mat-hint>How much doubles do you want?</mat-hint>
-        <input type="number" matInput required formControlName = 'amount'>
-        <mat-error>Amount is required</mat-error>
-    </mat-form-field>
+<form class = 'single-doubles' [formGroup] = 'singleDoubles' autocomplete="off">
+    <mat-radio-group required style = 'margin: 10px 0' required formControlName = 'triples' aria-label="Doubles or Triples?">
+        <mat-radio-button [value]="false">Doubles</mat-radio-button>
+        <mat-radio-button [value]="true">Triples</mat-radio-button>
+    </mat-radio-group> 
 
-    <h3 style = 'margin-top: 10px;'>Customize your doubles</h3>
-    <section class="single-doubles-checkboxes">
+    <h3 style = 'margin: 0'>How many do you want?</h3>
+
+    <ng-container *ngIf = 'singleDoubles.controls["amount"] as amountControl'>
+        <mat-form-field class = 'order-field'>
+            <mat-label>Amount</mat-label>
+            <mat-hint>How much do you want?</mat-hint>
+            <input type="number" matInput required formControlName = 'amount'>
+            <mat-error *ngIf = 'amountControl.errors?.required'>Amount is required!</mat-error>
+            <mat-error *ngIf = 'amountControl.errors?.min'>You must order at least 1!</mat-error>
+        </mat-form-field>
+    </ng-container>
+    
+   
+
+    <h3 style = 'margin-top: 10px;'>Customize toppings</h3>
+    <section formGroupName = 'toppings' class="single-doubles-checkboxes">
         <mat-checkbox formControlName = 'channa'>Channa</mat-checkbox>
-        <mat-checkbox formControlName = 'triples'>Triples</mat-checkbox>
         <mat-checkbox formControlName = 'sweetSauce'>Sweet Sauce</mat-checkbox>
         <mat-checkbox formControlName = 'coconut'>Coconut</mat-checkbox>
         <mat-checkbox formControlName = 'cucumber'>Cucumber</mat-checkbox>

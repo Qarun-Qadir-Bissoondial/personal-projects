@@ -20,6 +20,7 @@ export class CreateOrderComponent {
   }
 
   addDoubles(config: DoublesConfig) {
+    console.log(config);
     (this.order.controls['doubles'] as FormArray).push(this.fb.group(config));
   }
 

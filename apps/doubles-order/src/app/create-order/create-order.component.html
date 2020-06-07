@@ -15,14 +15,21 @@
         color = 'primary'
         mat-raised-button
         style = 'margin-top: 20px;'
-        (click) = 'createOrder()'>Add Doubles</button>
+        (click) = 'createOrder()'>Add Order</button>
     
     <section class = 'all-orders'>
-        <ng-container *ngIf = 'order.controls["doubles"] as doublesControls'>
-            <ng-container *ngIf = 'doublesControls.value.length > 0'>
-                <section class = 'single-order mat-elevation-z2' *ngFor = 'let control of doublesControls.value'>
-                    {{control | json}}
-                </section>
+        <ng-container *ngIf = 'order.controls["doubles"] as doublesOrders'>
+            <ng-container *ngIf = 'doublesOrders.value.length > 0'>
+
+                <div class = 'single-order mat-elevation-z2' *ngFor = 'let order of doublesOrders.value'>
+                    <h3 style = 'font-weight: 500'>{{order.amount}} {{order.triples ? "triples": "doubles"}} ({{order.pepper}} pepper) with:</h3>
+                        <div class="single-order-toppings" >
+                            <ng-container *ngFor = 'let topping of order.toppings | keyvalue'>
+                                <span *ngIf = 'topping.value'>- {{topping.key | separateCamelCase | titlecase}}</span>
+                            </ng-container>
+                        </div>
+                </div>
+
             </ng-container>
         </ng-container>
     </section>
