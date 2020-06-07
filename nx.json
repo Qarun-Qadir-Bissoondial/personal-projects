@@ -36,6 +36,9 @@
     "useful-random-e2e": {
       "tags": [],
       "implicitDependencies": ["useful-random"]
+    },
+    "models": {
+      "tags": []
     }
   }
 }
