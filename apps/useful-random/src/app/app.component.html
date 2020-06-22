@@ -2,6 +2,30 @@
   <h2>Useful Random</h2>
 </mat-toolbar>
 
+<h2 style = 'text-align: center; margin-top: 12px;'>Categories</h2>
+
+<!-- <random-dice></random-dice>
+<random-number-range></random-number-range>
+<random-coin-toss></random-coin-toss>4
+<random-rpc></random-rpc> -->
+
 <main>
-  <router-outlet></router-outlet>
+
+  <random-base>
+    <h3>Number in Range!</h3>
+    <p description>Picks a random number from a range</p>
+    <random-number-range main-body></random-number-range>
+  </random-base>
+
+  <!-- <random-base>
+    <h3>Dice</h3>
+    <p description>Toss any number of dice!</p>
+    <random-dice main-body></random-dice>
+  </random-base> -->
+
+
+  <!-- <div *ngFor = 'let link of links' class="card mat-elevation-z2 title-and-desc">
+      <h3>{{link.title}}</h3>
+      <p>{{link.description}}</p>
+  </div> -->
 </main>

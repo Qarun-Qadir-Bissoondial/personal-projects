@@ -12,3 +12,11 @@ main {
 main mat-form-field {
     width: 30%;
 }
+
+footer {
+    text-align: center;
+}
+
+footer * {
+    margin: 0 10px;
+}

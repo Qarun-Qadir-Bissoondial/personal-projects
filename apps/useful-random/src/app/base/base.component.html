@@ -1,0 +1,15 @@
+<div class="card mat-elevation-z2">
+    <header (click) = 'shown = true' class = 'title-and-desc'>
+        <ng-content select = 'h3'></ng-content>
+        <ng-content select = [description]></ng-content>
+    </header>
+
+    <main *ngIf = 'shown'>
+        <ng-content select = '[main-body]'></ng-content>
+    </main>
+
+    <footer>
+        <button *ngIf = 'shown' mat-raised-button color = 'primary' (click) = 'shown = false'>Close</button>
+    </footer>
+
+</div>
