@@ -1,3 +1,4 @@
+import { MatButtonModule } from '@angular/material/button';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -11,7 +12,8 @@ const routes: Routes = [
   declarations: [CoinTossComponent],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    MatButtonModule
   ]
 })
 export class CoinTossModule { }
