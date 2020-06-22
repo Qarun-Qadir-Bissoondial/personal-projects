@@ -1,5 +1,7 @@
+<h2 style = 'text-align: center; margin-top: 12px;'>Categories</h2>
+
 <main>
-    <div *ngFor = 'let link of links' class="card mat-elevation-z2 title-and-desc" [routerLink] = 'link.route'>
+    <div matRipple *ngFor = 'let link of links' class="card mat-elevation-z2 title-and-desc" [routerLink] = 'link.route'>
         <h3>{{link.title}}</h3>
         <p>{{link.description}}</p>
     </div>
