@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
 })
 export class CoinTossComponent {
   result: 'Heads' | 'Tails';
-  flipCoin = () => { this.result = Math.floor(Math.random()) > 0.5 ? 'Heads' : 'Tails' }
+  flipCoin = () => { this.result = Math.random() > 0.5 ? 'Heads' : 'Tails' }
 }
