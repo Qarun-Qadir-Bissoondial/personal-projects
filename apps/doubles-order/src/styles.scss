@@ -1,0 +1,21 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+$doubles-order-primary: mat-palette($mat-red);
+$doubles-order-accent: mat-palette($mat-pink, A200, A100, A400);
+$doubles-order-warn: mat-palette($mat-red);
+$doubles-order-theme: mat-light-theme($doubles-order-primary, $doubles-order-accent, $doubles-order-warn);
+@include angular-material-theme($doubles-order-theme);
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.create-order {
+    width: 90vw
+}
+
+@media screen and (min-width: 768px) {
+    .create-order {
+        width: 50vw;
+    }
+}
