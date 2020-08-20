@@ -11,16 +11,40 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2015",
-    "typeRoots": ["node_modules/@types"],
-    "lib": ["es2018", "dom"],
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2018",
+      "dom"
+    ],
     "paths": {
-      "@qarun-qb/pothole-interface": ["libs/pothole-interface/src/index.ts"],
-      "@qarun-qb/models": ["libs/models/src/index.ts"]
+      "@qarun-qb/pothole-interface": [
+        "libs/pothole-interface/src/index.ts"
+      ],
+      "@qarun-qb/models": [
+        "libs/models/src/index.ts"
+      ],
+      "@qarun-qb/*": [
+        "libs/*"
+      ],
+      "@qarun-qb/nativescript": [
+        "xplat/nativescript/index.ts"
+      ],
+      "@qarun-qb/nativescript/*": [
+        "xplat/nativescript/*"
+      ]
     },
     "rootDir": "."
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true
-  }
+  },
+  "exclude": [
+    "apps/nativescript-*"
+  ],
+  "includes": [
+    "xplat/**/*.{ios,android}.ts"
+  ]
 }

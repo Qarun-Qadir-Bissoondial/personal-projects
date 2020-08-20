@@ -14,13 +14,6 @@
     "voice-list-e2e": {
       "tags": []
     },
-    "tt-pothole-report": {
-      "tags": []
-    },
-    "tt-pothole-report-e2e": {
-      "tags": [],
-      "implicitDependencies": ["tt-pothole-report"]
-    },
     "tt-pothole-backend": {
       "tags": []
     },
@@ -35,16 +28,29 @@
     },
     "doubles-order-e2e": {
       "tags": [],
-      "implicitDependencies": ["doubles-order"]
+      "implicitDependencies": [
+        "doubles-order"
+      ]
     },
     "useful-random": {
       "tags": []
     },
     "useful-random-e2e": {
       "tags": [],
-      "implicitDependencies": ["useful-random"]
+      "implicitDependencies": [
+        "useful-random"
+      ]
     },
     "models": {
+      "tags": []
+    },
+    "libs": {
+      "tags": []
+    },
+    "xplat": {
+      "tags": []
+    },
+    "nativescript-tt-pothole-report": {
       "tags": []
     }
   }

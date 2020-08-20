@@ -1,0 +1,33 @@
+{
+  "name": "ttpotholereport",
+  "nativescript": {
+    "id": "org.nativescript.ttpotholereport"
+  },
+  "description": "NativeScript Application",
+  "scripts": {
+    "postinstall": "node ./tools/xplat-postinstall.js && npm run ngcc",
+    "ngcc": "ngcc --properties es2015 module main --first-only"
+  },
+  "dependencies": {
+    "@angular/animations": "~10.0.0",
+    "@angular/common": "~10.0.0",
+    "@angular/compiler": "~10.0.0",
+    "@angular/core": "~10.0.0",
+    "@angular/forms": "~10.0.0",
+    "@angular/platform-browser": "~10.0.0",
+    "@angular/platform-browser-dynamic": "~10.0.0",
+    "@angular/router": "~10.0.0",
+    "@nativescript/angular": "~10.0.0",
+    "@nativescript/core": "rc",
+    "nativescript-theme-core": "^1.0.4",
+    "rxjs": "^6.6.0",
+    "zone.js": "~0.10.2"
+  },
+  "devDependencies": {
+    "@angular/compiler-cli": "~10.0.0",
+    "@ngtools/webpack": "~10.0.0",
+    "@nativescript/types": "rc",
+    "@nativescript/webpack": "~2.1.0",
+    "typescript": "~3.9.0"
+  }
+}
