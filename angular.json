@@ -217,7 +217,7 @@
               "apps/tt-pothole-report/tsconfig.app.json",
               "apps/tt-pothole-report/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/tt-pothole-report/**"]
+            "exclude": ["**/node_modules/**", "!apps/tt-pothole-report/**/*"]
           }
         },
         "test": {
@@ -256,7 +256,10 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": ["apps/tt-pothole-report-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/tt-pothole-report-e2e/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/tt-pothole-report-e2e/**/*"
+            ]
           }
         }
       }
@@ -303,7 +306,7 @@
               "apps/tt-pothole-backend/tsconfig.app.json",
               "apps/tt-pothole-backend/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/tt-pothole-backend/**"]
+            "exclude": ["**/node_modules/**", "!apps/tt-pothole-backend/**/*"]
           }
         },
         "test": {
@@ -358,7 +361,7 @@
               "apps/voice-list-backend/tsconfig.app.json",
               "apps/voice-list-backend/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/voice-list-backend/**"]
+            "exclude": ["**/node_modules/**", "!apps/voice-list-backend/**/*"]
           }
         },
         "test": {
@@ -384,7 +387,7 @@
               "libs/pothole-interface/tsconfig.lib.json",
               "libs/pothole-interface/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/pothole-interface/**"]
+            "exclude": ["**/node_modules/**", "!libs/pothole-interface/**/*"]
           }
         },
         "test": {
