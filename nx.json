@@ -29,6 +29,13 @@
     },
     "pothole-interface": {
       "tags": []
+    },
+    "doubles-order": {
+      "tags": []
+    },
+    "doubles-order-e2e": {
+      "tags": [],
+      "implicitDependencies": ["doubles-order"]
     }
   }
 }
