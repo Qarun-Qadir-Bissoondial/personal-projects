@@ -14,3 +14,4 @@
 **/apps/*nativescript/src/assets/*.css
 **/xplat/nativescript/scss/fonticons/*.css
 **/xplat/nativescript*/plugins/**/*
+**/xplat/*/.xplatframework

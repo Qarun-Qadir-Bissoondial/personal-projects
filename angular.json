@@ -715,7 +715,7 @@
   "defaultProject": "voice-list",
   "cli": {
     "analytics": false,
-    "defaultCollection": "@nrwl/angular"
+    "defaultCollection": "@nstudio/xplat"
   },
   "schematics": {
     "@nrwl/angular:application": {
