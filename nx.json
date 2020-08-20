@@ -36,6 +36,16 @@
     "doubles-order-e2e": {
       "tags": [],
       "implicitDependencies": ["doubles-order"]
+    },
+    "useful-random": {
+      "tags": []
+    },
+    "useful-random-e2e": {
+      "tags": [],
+      "implicitDependencies": ["useful-random"]
+    },
+    "models": {
+      "tags": []
     }
   }
 }

@@ -1,0 +1,17 @@
+<main>
+    <mat-form-field>
+        <mat-label>Limit 1</mat-label>
+        <input autocomplete="off" matInput type="number" [min] = 'min_allowed' [max] = 'max_allowed' [(ngModel)] = 'limit1' required>
+        <mat-error>Value required!</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Limit 2</mat-label>
+        <input autocomplete="off" matInput type="number" [min] = 'min_allowed' [max] = 'max_allowed' [(ngModel)] = 'limit2' required>
+        <mat-error>Value required!</mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color = 'primary' (click) = 'generateNumber()'>Generate!</button>
+</main>
+
+<h2 style = 'text-align: center;' *ngIf = 'generated || generated === 0'>Value: {{generated}}</h2>
