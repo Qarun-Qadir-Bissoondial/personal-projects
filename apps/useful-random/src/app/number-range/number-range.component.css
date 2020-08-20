@@ -1,0 +1,22 @@
+header {
+    padding: 20px 0;
+    text-align: center;
+}
+
+main {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+main mat-form-field {
+    width: 30%;
+}
+
+footer {
+    text-align: center;
+}
+
+footer * {
+    margin: 0 10px;
+}
