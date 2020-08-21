@@ -1,10 +1,7 @@
 {
   "name": "ttpotholereport",
   "nativescript": {
-    "id": "org.nativescript.ttpotholereport",
-    "tns-android": {
-      "version": "6.5.3"
-    }
+    "id": "org.nativescript.ttpotholereport"
   },
   "description": "NativeScript Application",
   "scripts": {
@@ -31,7 +28,6 @@
     "@ngtools/webpack": "~10.0.0",
     "@nativescript/types": "rc",
     "@nativescript/webpack": "~2.1.0",
-    "typescript": "~3.9.0",
-    "nativescript-dev-webpack": "1.0.1"
+    "typescript": "~3.9.0"
   }
 }
