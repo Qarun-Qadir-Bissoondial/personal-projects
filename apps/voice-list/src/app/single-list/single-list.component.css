@@ -1,3 +1,23 @@
+header .title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header .list-info {
+    display: flex;
+    justify-content: flex-end
+}
+
+.list-info span {
+    margin: 5px;
+}
+
+header .list-info span {
+    display: flex;
+    align-items: center;
+}
+
 .item-list {
     display: flex;
     justify-content: space-between;

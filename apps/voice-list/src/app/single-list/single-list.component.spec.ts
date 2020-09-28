@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SingleListComponent } from './single-list.component';
-import { generateFakeList } from 'src/testing/fake-gen';
 import { Router } from '@angular/router';
+import { generateFakeList } from '../../testing/fake-gen';
 
 class RouterWithExtras {
   getCurrentNavigation() {
@@ -39,10 +39,10 @@ fdescribe('SingleListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('markAsCompleted', () => {
+  describe('markAsComplete', () => {
     it('should correct mark an item as completed', () => {
       expect(component.list.completed).toBe(1);
-      component.markAsCompleted('Eggs');
+      component.markAsComplete('Eggs');
       console.log(component.list.items);
       expect(component.list.items['Eggs']).toBe(true);
       expect(component.list.completed).toBe(2);
@@ -51,7 +51,7 @@ fdescribe('SingleListComponent', () => {
 
     it('should not make any changes if specified item is already completed', () => {
       expect(component.list.completed).toBe(1);
-      component.markAsCompleted('Fish');
+      component.markAsComplete('Fish');
 
       expect(component.list.completed).toBe(1);
       expect(component.list.items['Fish']).toBe(true);

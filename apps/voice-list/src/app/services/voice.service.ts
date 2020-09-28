@@ -28,6 +28,7 @@ export class VoiceService {
   }
 
   teardown() {
+    console.log('hee hee');
     this.annyang.abort();
   }
 

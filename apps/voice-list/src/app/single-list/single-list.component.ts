@@ -1,7 +1,8 @@
 import { StorageService } from './../services/storage.service';
-import { Component, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnDestroy, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { VoiceService } from '../services/voice.service';
+import { MatRipple } from '@angular/material/core';
 
 @Component({
   selector: 'app-single-list',
@@ -9,8 +10,12 @@ import { VoiceService } from '../services/voice.service';
   styleUrls: ['./single-list.component.css']
 })
 export class SingleListComponent implements OnDestroy {
+  @ViewChild(MatRipple) ripple: MatRipple;
+
   list: List;
   completedPercentage: number;
+  listening: boolean;
+  listeningTrigger;
 
   constructor(
     private router: Router,
@@ -26,30 +31,59 @@ export class SingleListComponent implements OnDestroy {
 
       this.calculatePercentage();
       this.storage.save('current-list', this.list);
+      this.toggleListening(false);
+  }
 
-      const commands = [
-        {
-          '*item': (item: string) => { 
-            console.log(item);
-            // this.toggle(item); 
-          }
-        },
-        {
-          'add :item': (item: string) => { this.addItem(item); },
-          'we need :item': (item: string) => { this.addItem(item); }
-        },
-        {
-          'remove :item': (item: string) => {this.removeItem(item)},
-          'delete :item': (item: string) => {this.removeItem(item)}
-        },
-        {
-          'check :item': (item: string) => { this.markAsCompleted(item) },
-          'tick off :item': (item: string) => { this.markAsCompleted(item) },
-        },
-      ];
+  toggleListening(checked: boolean) {
+    this.listening = checked;
 
-      // @ts-ignore
-      this.voice.addCommands(commands).init();
+    if (checked) {
+      this.listeningTrigger = setInterval(() => {
+          const rippleRef = this.ripple.launch({
+            centered: true,
+          });
+    
+          rippleRef.fadeOut();
+        }, 2000);
+
+      this.startListening();
+    } else {
+      clearInterval(this.listeningTrigger);
+      this.voice.teardown();
+    }
+  }
+
+  startListening() {
+    const add = (item: string) => { this.addItem(item); };
+    const remove = (item: string) => {this.removeItem(item)};
+    const markComplete = (item: string) => { this.markAsComplete(item) };
+    const markIncomplete = (item: string) => { this.markAsIncomplete(item) };
+    const stop = () => { this.voice.teardown(); this.listening = false; }
+
+    const commands = [
+      {
+        'stop listening': stop
+      },
+      {
+        'add :item': add,
+        'we need :item': add
+      },
+      {
+        'remove :item': remove,
+        'delete :item': remove
+      },
+      {
+        'check :item': markComplete,
+        'we got :item': markComplete,
+        'we have :item': markComplete
+      },
+      {
+        'uncheck :item': markIncomplete
+      }
+    ];
+
+    // @ts-ignore
+    this.voice.addCommands(commands).init();
   }
 
   calculatePercentage() {
@@ -58,7 +92,7 @@ export class SingleListComponent implements OnDestroy {
 
   updateItem(itemName: string, value: boolean) {
     value
-    ? this.markAsCompleted(itemName)
+    ? this.markAsComplete(itemName)
     : this.markAsIncomplete(itemName);
 
   }
@@ -77,7 +111,7 @@ export class SingleListComponent implements OnDestroy {
     this.changeRef.detectChanges();
   }
 
-  markAsCompleted(itemName: string): void {
+  markAsComplete(itemName: string): void {
     if (!(itemName in this.list.items)) { return; }    
     if (this.list.items[itemName] === true) { return; }
 
@@ -114,9 +148,10 @@ export class SingleListComponent implements OnDestroy {
   toggle(itemName: string) {
     if (!(itemName in this.list.items)) { return; }
 
+    console.log(itemName);
     this.list.items[itemName]
       ? this.markAsIncomplete(itemName)
-      : this.markAsCompleted(itemName);
+      : this.markAsComplete(itemName);
   }
 
 }
