@@ -3,10 +3,8 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { MatTabsModule } from '@angular/material/tabs';
 import { ListsComponent } from './lists/lists.component';
 import { AboutComponent } from './about/about.component';
 import { RouterModule } from '@angular/router';
@@ -31,9 +29,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     BrowserAnimationsModule,
     RouterModule,
     AppRoutingModule,
-    MatToolbarModule,
     MatSlideToggleModule,
-    MatTabsModule,
     MatIconModule,
     MatRippleModule,
     MatProgressBarModule,

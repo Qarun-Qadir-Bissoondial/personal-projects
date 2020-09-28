@@ -1,18 +1,10 @@
-<mat-toolbar color = 'primary'>
+<header>
   <span>Voice List</span>
-</mat-toolbar>
+  <button routerLink = '/about' mat-icon-button>
+    <mat-icon>info_outline</mat-icon>
+  </button>
+</header>
 
 <main>
   <router-outlet></router-outlet>
 </main>
-
-<nav mat-stretch-tabs mat-tab-nav-bar>
-  <a 
-    mat-tab-link
-    *ngFor = 'let link of links'
-    [routerLink] = '"/" + link'
-    (click) = 'activeLink = link'
-    [active] = 'link === activeLink'>{{link | titlecase}}</a>
-
-</nav>
-
