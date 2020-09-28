@@ -1,7 +1,7 @@
 import { StorageService } from './../services/storage.service';
 import { Component, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { SpeechRecogService } from '../services/speech-recog.service';
+import { VoiceService } from '../services/voice.service';
 
 @Component({
   selector: 'app-single-list',
@@ -15,9 +15,9 @@ export class SingleListComponent implements OnDestroy {
   constructor(
     private router: Router,
     private storage: StorageService,
-    private speech: SpeechRecogService,
+    private voice: VoiceService,
     private changeRef: ChangeDetectorRef) {
-    
+
       const list = this.router.getCurrentNavigation().extras.state as List;
       
       this.list = !list
@@ -25,25 +25,31 @@ export class SingleListComponent implements OnDestroy {
         : list;
 
       this.calculatePercentage();
-
       this.storage.save('current-list', this.list);
 
-      this.speech.recognizer.onresult = (event: SpeechRecognitionEvent) => {
-        const speechResult = event.results[0][0].transcript.toLocaleLowerCase();
-        
-        if (!(speechResult in this.list.items)) {
-          console.log(`${speechResult} not found in list`);
-        } else {
-          const completed = this.list.items[speechResult];
+      const commands = [
+        {
+          '*item': (item: string) => { 
+            console.log(item);
+            // this.toggle(item); 
+          }
+        },
+        {
+          'add :item': (item: string) => { this.addItem(item); },
+          'we need :item': (item: string) => { this.addItem(item); }
+        },
+        {
+          'remove :item': (item: string) => {this.removeItem(item)},
+          'delete :item': (item: string) => {this.removeItem(item)}
+        },
+        {
+          'check :item': (item: string) => { this.markAsCompleted(item) },
+          'tick off :item': (item: string) => { this.markAsCompleted(item) },
+        },
+      ];
 
-          completed 
-            ? this.markAsIncomplete(speechResult)
-            : this.markAsCompleted(speechResult);
-
-          console.log('Finished');
-          this.changeRef.detectChanges();
-        }
-      }
+      // @ts-ignore
+      this.voice.addCommands(commands).init();
   }
 
   calculatePercentage() {
@@ -58,32 +64,28 @@ export class SingleListComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.storage.delete('current-list');
+    this.voice.teardown();
   }
   
-  start() {
-    this.speech.start();
-  }
-
-  stop() {
-    this.speech.stop();
-  }
-
   addItem(itemName: string): void {
     if (itemName in this.list.items) { return; }
 
     this.list.items[itemName] = false;
     this.list.pending++;
     this.calculatePercentage();
+    console.log(this.list.items);
+    this.changeRef.detectChanges();
   }
 
   markAsCompleted(itemName: string): void {
+    if (!(itemName in this.list.items)) { return; }    
     if (this.list.items[itemName] === true) { return; }
 
     this.list.items[itemName] = true;
     this.list.pending--;
     this.list.completed++;
     this.calculatePercentage();
+    this.changeRef.detectChanges();
   }
 
   markAsIncomplete(itemName: string): void {
@@ -92,6 +94,7 @@ export class SingleListComponent implements OnDestroy {
     this.list.pending++;
     this.list.completed--;
     this.calculatePercentage();
+    this.changeRef.detectChanges();
   }
 
   removeItem(itemName: string): void {
@@ -105,16 +108,15 @@ export class SingleListComponent implements OnDestroy {
 
     delete this.list.items[itemName];
     this.calculatePercentage();
+    this.changeRef.detectChanges();
   }
 
-  toggle(item) {
-    console.log(item);
-  }
+  toggle(itemName: string) {
+    if (!(itemName in this.list.items)) { return; }
 
-  trackFn(index, item) {
-    return index;
+    this.list.items[itemName]
+      ? this.markAsIncomplete(itemName)
+      : this.markAsCompleted(itemName);
   }
-
-  // undo() {} PHASE 2
 
 }

@@ -3,7 +3,7 @@
 <section 
     class = 'item-list'
     [ngClass] = '{"completed": item.value}'
-    *ngFor = 'let item of list.items | keyvalue; trackBy: trackFn'
+    *ngFor = 'let item of list.items | keyvalue'
     (click) = 'updateItem(item.key, !item.value)'>
     <span style = 'margin-top: 6px'>{{item.key | titlecase}}</span>
 

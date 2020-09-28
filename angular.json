@@ -28,7 +28,9 @@
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "apps/voice-list/src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/annyang/dist/annyang.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -715,7 +717,7 @@
   "defaultProject": "voice-list",
   "cli": {
     "analytics": false,
-    "defaultCollection": "@nstudio/xplat"
+    "defaultCollection": "@nrwl/angular"
   },
   "schematics": {
     "@nrwl/angular:application": {
