@@ -79,6 +79,13 @@ export class SingleListComponent implements OnDestroy {
       },
       {
         'uncheck :item': markIncomplete
+      },
+      {
+        'complete all': () => {
+          for (const item in this.list.items) {
+            this.markAsComplete(item);
+          }
+        }
       }
     ];
 
