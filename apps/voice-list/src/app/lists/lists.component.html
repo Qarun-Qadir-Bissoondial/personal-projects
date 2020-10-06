@@ -2,10 +2,10 @@
     <section 
         matRipple
         class = 'card'
-        *ngFor = 'let list of lists'
-        [routerLink] = '"/list-details/" + list.name'
+        *ngFor = 'let list of lists | async'
+        [routerLink] = '"/list-details/" + list.listName'
         [state] = 'list'>
-        <h2>{{list.name}}</h2>
+        <h2>{{list.listName}}</h2>
     
         <section class="card-stats">
 

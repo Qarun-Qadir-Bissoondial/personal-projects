@@ -1,5 +1,9 @@
-import { generateFakeList } from './../../testing/fake-gen';
 import { Component, OnInit } from '@angular/core';
+import {  Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
+import { List, State } from '../list.reducer';
+import { selectLists } from '../list.selectors';
 
 @Component({
   selector: 'app-lists',
@@ -8,50 +12,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListsComponent implements OnInit {
 
-  lists: List[] = [
-    generateFakeList('Grocery List')
-    // {
-    //   name: 'Grocery List',
-    //   completed: 0,
-    //   pending: 3,
-    //   items: [
-    //     {
-    //       name: 'Fish',
-    //       completed: true
-    //     },
-    //     {
-    //       name: 'Eggs',
-    //       completed: false
-    //     },
-    //     {
-    //       name: 'Milk',
-    //       completed: false
-    //     }
-    //   ]
-    // },
-    // {
-    //   name: 'Fruits to buy',
-    //   completed: 0,
-    //   pending: 3,
-    //   items: [
-    //     {
-    //       name: 'Apples',
-    //       completed: false
-    //     },
-    //     {
-    //       name: 'Ornages',
-    //       completed: false
-    //     },
-    //     {
-    //       name: 'Bananas',
-    //       completed: false
-    //     }
-    //   ]
-    // },
-  ]
-  constructor() { }
+  lists: Observable<List[]>;
+
+  constructor(private store: Store<State>) {
+    this.lists = this.store.select(selectLists);
+  }
 
   ngOnInit(): void {
+   
   }
 
 }

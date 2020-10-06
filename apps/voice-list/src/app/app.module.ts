@@ -17,6 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { StoreModule } from '@ngrx/store';
+import { reducer } from './list.reducer';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import { StoreModule } from '@ngrx/store';
     MatCheckboxModule,
     MatButtonModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    StoreModule.forRoot({}, {})
+    StoreModule.forRoot({state: reducer })
   ],
   providers: [],
   bootstrap: [AppComponent]
