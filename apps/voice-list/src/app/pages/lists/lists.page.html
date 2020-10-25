@@ -24,6 +24,21 @@
     </section>
 </main>
 
-<button id = 'add' mat-mini-fab>
+<button id = 'add' mat-mini-fab (click) = 'createList(addListDialog)'>
     <mat-icon>add</mat-icon>
 </button>
+
+<ng-template #addListDialog>
+    <h3>Add a new List</h3>
+    
+    <mat-form-field style = 'padding: 10px 0;'>
+        <mat-label>List Name</mat-label>
+        <input matInput [(ngModel)] = 'newListName' required>
+        <mat-error>List name is required</mat-error>
+    </mat-form-field>
+
+    <footer class = 'add-list-footer'>
+        <button mat-raised-button color = 'primary' [mat-dialog-close] = 'newListName'>Add</button>
+        <button mat-raised-button color = 'warn' [mat-dialog-close] = 'newListName'>Cancel</button>
+    </footer>
+</ng-template>

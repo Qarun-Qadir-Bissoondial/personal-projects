@@ -50,11 +50,16 @@ const storeReducer = createReducer(
     on(ListActions.createList, (state, meta) => {
         const { listName } = meta;
 
-        state.lists.allIds = state.lists.allIds.concat(listName);
-        state.lists.byId[listName] = createDefaultList(listName);
-
-        return state;
-
+        return {
+            lists: {
+                allIds: state.lists.allIds.concat(listName),                
+                byId: {
+                    ...state.lists.byId,
+                    [listName]: createDefaultList(listName)
+                }
+            },
+            items: {...state.items}
+        }
     }),
 
     on(ListActions.deleteList, (state, meta) => {

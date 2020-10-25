@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import {  select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { createList } from '../../list.actions';
 import { List, State } from '../../list.reducer';
 import { selectLists } from '../../list.selectors';
 
@@ -13,6 +15,7 @@ import { selectLists } from '../../list.selectors';
 export class ListsPage {
 
   lists: Observable<List[]>;
+  newListName: string;
 
   constructor(
     private store: Store<{appState: State}>,
@@ -20,8 +23,14 @@ export class ListsPage {
     this.lists = this.store.pipe(select(selectLists));
   }
 
-  createList() {
-
+  createList(addListTemplate: TemplateRef<any>) {
+    this.dialog
+      .open(addListTemplate)
+      .afterClosed()
+      .pipe(filter(response => !!response))
+      .subscribe(() => {
+        this.store.dispatch(createList({listName: this.newListName}));
+      })
   }
 
 }
