@@ -15,7 +15,6 @@ import { selectLists } from '../../list.selectors';
 export class ListsPage {
 
   lists: Observable<List[]>;
-  newListName: string;
 
   constructor(
     private store: Store<{appState: State}>,
@@ -28,8 +27,8 @@ export class ListsPage {
       .open(addListTemplate)
       .afterClosed()
       .pipe(filter(response => !!response))
-      .subscribe(() => {
-        this.store.dispatch(createList({listName: this.newListName}));
+      .subscribe((newListName: string) => {
+        this.store.dispatch(createList({listName: newListName}));
       })
   }
 

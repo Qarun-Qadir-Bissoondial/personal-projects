@@ -1,6 +1,5 @@
 // @angular native imports
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -50,7 +49,6 @@ import { SingleListPage } from './pages/single-list/single-list.page';
     MatCheckboxModule,
     MatButtonModule,
     MatDialogModule,
-    FormsModule,
     MatFormFieldModule,
     MatInputModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
