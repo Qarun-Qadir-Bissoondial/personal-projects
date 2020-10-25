@@ -18,6 +18,11 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { StoreModule } from '@ngrx/store';
 import { reducer } from './list.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { MatDialogModule } from '@angular/material/dialog';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -37,8 +42,13 @@ import { reducer } from './list.reducer';
     MatProgressBarModule,
     MatCheckboxModule,
     MatButtonModule,
+    MatDialogModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    StoreModule.forRoot({state: reducer })
+    StoreModule.forRoot({'appState': reducer}),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]

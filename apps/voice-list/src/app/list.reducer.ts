@@ -45,7 +45,7 @@ export const initialState: State = {
 
 const createDefaultList = (listName: string): List => ({ listName, total: 0, pending: 0, completed: 0 });
 
-const listReducer = createReducer(
+const storeReducer = createReducer(
     initialState,
     on(ListActions.createList, (state, meta) => {
         const { listName } = meta;
@@ -117,7 +117,7 @@ const listReducer = createReducer(
 );
 
 export function reducer(state: State | undefined, action: Action) {
-    return listReducer(state, action)
+    return storeReducer(state, action)
 }
 
 // const x = {

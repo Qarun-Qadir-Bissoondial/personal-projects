@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {  Store } from '@ngrx/store';
+import { MatDialog } from '@angular/material/dialog';
+import {  select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
 import { List, State } from '../list.reducer';
 import { selectLists } from '../list.selectors';
 
@@ -10,16 +10,18 @@ import { selectLists } from '../list.selectors';
   templateUrl: './lists.component.html',
   styleUrls: ['./lists.component.css']
 })
-export class ListsComponent implements OnInit {
+export class ListsComponent {
 
   lists: Observable<List[]>;
 
-  constructor(private store: Store<State>) {
-    this.lists = this.store.select(selectLists);
+  constructor(
+    private store: Store<{appState: State}>,
+    private dialog: MatDialog) {
+    this.lists = this.store.pipe(select(selectLists));
   }
 
-  ngOnInit(): void {
-   
+  createList() {
+    
   }
 
 }
