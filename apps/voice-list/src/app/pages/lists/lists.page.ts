@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import {  select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { List, State } from '../list.reducer';
-import { selectLists } from '../list.selectors';
+import { List, State } from '../../list.reducer';
+import { selectLists } from '../../list.selectors';
 
 @Component({
   selector: 'app-lists',
-  templateUrl: './lists.component.html',
-  styleUrls: ['./lists.component.css']
+  templateUrl: './lists.page.html',
+  styleUrls: ['./lists.page.css']
 })
-export class ListsComponent {
+export class ListsPage {
 
   lists: Observable<List[]>;
 
@@ -21,7 +21,7 @@ export class ListsComponent {
   }
 
   createList() {
-    
+
   }
 
 }

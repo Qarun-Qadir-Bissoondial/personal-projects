@@ -1,16 +1,16 @@
-import { StorageService } from './../services/storage.service';
+import { StorageService } from '../../services/storage.service';
 import { Component, OnDestroy, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { VoiceService } from '../services/voice.service';
+import { VoiceService } from '../../services/voice.service';
 import { MatRipple } from '@angular/material/core';
-import { List } from '../list.reducer';
+import { List } from '../../list.reducer';
 
 @Component({
   selector: 'app-single-list',
-  templateUrl: './single-list.component.html',
-  styleUrls: ['./single-list.component.css']
+  templateUrl: './single-list.page.html',
+  styleUrls: ['./single-list.page.css']
 })
-export class SingleListComponent implements OnDestroy {
+export class SingleListPage implements OnDestroy {
   @ViewChild(MatRipple) ripple: MatRipple;
 
   list: List;
