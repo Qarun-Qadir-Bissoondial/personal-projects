@@ -1,3 +1,10 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 72px);
+}
+
+
 header .title {
     display: flex;
     align-items: center;
@@ -16,6 +23,30 @@ header .list-info {
 header .list-info span {
     display: flex;
     align-items: center;
+}
+
+footer {
+    margin-top: auto;
+    display: grid;
+    place-items: center;
+    grid-template-columns: 1fr 1fr;
+    border: 1px solid #aaa;
+    border-bottom: 0;
+    border-radius: 8px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+footer .action {
+    padding: 1rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+footer .action span {
+    margin-right: 10px
 }
 
 .item-list {

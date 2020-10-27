@@ -25,6 +25,14 @@ nav .mat-ink-bar {
     cursor: pointer;
 }
 
+.actions {
+    text-align: center;
+}
+
+.actions button {
+    margin: 5px 10px;
+}
+
 @media screen and (min-width: 768px) {
     .card-list {
         grid-template-columns: repeat(auto-fit, minmax(325px, 1fr));

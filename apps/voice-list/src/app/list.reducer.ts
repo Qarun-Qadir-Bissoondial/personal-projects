@@ -33,9 +33,9 @@ export interface State {
 export const initialState: State = {
     lists: {
         byId: {
-            l1: generateFakeList('l1')
+            'Dummy List 1': generateFakeList('Dummy List 1')
         },
-        allIds: ['l1']
+        allIds: ['Dummy List 1']
     },
     items: {
         byId: {},
@@ -63,21 +63,27 @@ const storeReducer = createReducer(
     }),
 
     on(ListActions.deleteList, (state, meta) => {
+
+        console.log(state);
         
         // delete all items associated with the list
         const itemsOfList = state.items.allIds.filter(id => { state.items.byId[id].listName === meta.listName });
+        console.log(itemsOfList);
 
-        const newState = Object.assign({}, state);
+        const newState = JSON.parse(JSON.stringify(state));
 
         for (const item of itemsOfList) {
             newState.items.allIds.splice(newState.items.allIds.indexOf(item), 1);
             delete newState.items.byId[item];
         }
+    
+        const allListIds = Array.from(newState.lists.allIds);
+        allListIds.splice(allListIds.indexOf(meta.listName), 1);
         
-        // delete the list
-
-        newState.lists.allIds.splice(newState.lists.allIds.indexOf(meta.listName));
         delete newState.lists.byId[meta.listName]
+        newState.lists.allIds = allListIds;
+
+        console.log(newState);
 
         return newState;
     }),

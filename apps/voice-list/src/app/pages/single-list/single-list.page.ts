@@ -1,9 +1,13 @@
 import { StorageService } from '../../services/storage.service';
-import { Component, OnDestroy, ChangeDetectorRef, ViewChild } from '@angular/core';
+import { Component, OnDestroy, ChangeDetectorRef, ViewChild, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { VoiceService } from '../../services/voice.service';
 import { MatRipple } from '@angular/material/core';
-import { List } from '../../list.reducer';
+import { List, State } from '../../list.reducer';
+import { Store } from '@ngrx/store';
+import { deleteList } from '../../list.actions';
+import { MatDialog } from '@angular/material/dialog';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-single-list',
@@ -22,6 +26,8 @@ export class SingleListPage implements OnDestroy {
     private router: Router,
     private storage: StorageService,
     private voice: VoiceService,
+    private store: Store<{appState: State}>,
+    private dialog: MatDialog,
     private changeRef: ChangeDetectorRef) {
 
       const list = this.router.getCurrentNavigation().extras.state as List;
@@ -52,6 +58,17 @@ export class SingleListPage implements OnDestroy {
       clearInterval(this.listeningTrigger);
       this.voice.teardown();
     }
+  }
+
+  deleteList(deleteTemplate: TemplateRef<any>) {
+    this.dialog.open(deleteTemplate)
+      .afterClosed()
+      .pipe(filter(response => !!response))
+      .subscribe(() => {
+        console.log('deleting list');
+        this.store.dispatch(deleteList({listName: this.list.listName}));
+        this.router.navigateByUrl('/lists');
+      });
   }
 
   startListening() {

@@ -6,6 +6,10 @@ h2 {
     margin: 4px 0 16px 0;
 }
 
+.no-lists {
+    text-align: center;
+}
+
 .card-stats {
     display: flex;
     justify-content: flex-start;

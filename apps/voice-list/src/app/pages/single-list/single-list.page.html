@@ -1,3 +1,52 @@
+<header>
+    <div class="title">
+        <h2>{{list.listName}}</h2>
+        <div style = 'display: flex; align-items: center;'>
+            <mat-slide-toggle (change) = 'toggleListening($event.checked)' [checked] = 'listening'></mat-slide-toggle>
+            <i
+                class = 'material-icons'
+                style = 'pointer-events: none; margin-left: 10px;'
+                [style.color] = 'listening ? "red" : "black"'
+                matRipple
+                matRippleColor = 'red'
+                [matRippleRadius] = '20'
+                [matRippleUnbounded]="true" >mic</i>
+        </div>
+    </div>
+   
+    <div class = 'list-info'>
+        <span> <mat-icon style = 'margin-right: 10px'>schedule</mat-icon> {{list.pending}}</span>
+        <span> <mat-icon style = 'margin-right: 10px'>done</mat-icon> {{list.completed}}</span>
+    </div>
+</header>
+
+<mat-progress-bar style = 'margin: 10px 0;' mode="determinate" [value]="completedPercentage"></mat-progress-bar>
+
+<main>
+    <p>Body goes here!</p>
+</main>
+
+<footer>
+    <div matRipple class="action edit" style = 'border-right: 1px solid #aaa;'>
+        <span>Edit</span>
+        <mat-icon>edit</mat-icon>
+    </div>
+    <div (click) = 'deleteList(confirmDelete)' matRipple class="action delete" style = 'color: red;'>
+        <span>Delete</span>
+        <mat-icon>delete</mat-icon>
+    </div>
+</footer>
+
+<ng-template #confirmDelete>
+    <h3>Deleting {{list.listName}}</h3>
+    <p>Are you sure? <span style = 'text-decoration: underline;'>This cannot be undone!</span></p>
+
+    <div class="actions">
+        <button mat-raised-button color = 'primary' [mat-dialog-close] = 'true'>Delete</button>
+        <button mat-raised-button color = 'warn' [mat-dialog-close] = 'false'>Cancel</button>
+    </div>
+</ng-template>
+
 <!-- <header>
     <div class="title">
         <h2>{{list.name}}</h2>
@@ -20,7 +69,6 @@
     </div>
 </header>
 
-<mat-progress-bar style = 'margin: 10px 0;' mode="determinate" [value]="completedPercentage"></mat-progress-bar>
 
 <section 
     class = 'item-list'

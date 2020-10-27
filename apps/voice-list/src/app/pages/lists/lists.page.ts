@@ -14,12 +14,12 @@ import { selectLists } from '../../list.selectors';
 })
 export class ListsPage {
 
-  lists: Observable<List[]>;
+  lists$: Observable<List[]>;
 
   constructor(
     private store: Store<{appState: State}>,
     private dialog: MatDialog) {
-    this.lists = this.store.pipe(select(selectLists));
+    this.lists$ = this.store.pipe(select(selectLists));
   }
 
   createList(addListTemplate: TemplateRef<any>) {
