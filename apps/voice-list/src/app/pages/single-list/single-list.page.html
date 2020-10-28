@@ -27,7 +27,7 @@
 </main>
 
 <footer>
-    <div matRipple class="action edit" style = 'border-right: 1px solid #aaa;'>
+    <div (click) = 'editList(editTemplate)' matRipple class="action edit" style = 'border-right: 1px solid #aaa;'>
         <span>Edit</span>
         <mat-icon>edit</mat-icon>
     </div>
@@ -36,6 +36,21 @@
         <mat-icon>delete</mat-icon>
     </div>
 </footer>
+
+<ng-template #editTemplate>
+    <h3>Edit List Name</h3>
+
+    <mat-form-field>
+        <mat-label>List name</mat-label>
+        <input matInput #editInput required [value] = 'list.listName'>
+        <mat-error>List name is required!</mat-error>
+    </mat-form-field>
+
+    <div class="actions">
+        <button mat-raised-button color = 'primary' [mat-dialog-close] = 'editInput.value'>Update</button>
+        <button mat-raised-button color = 'warn' [mat-dialog-close]>Cancel</button>
+    </div>
+</ng-template>
 
 <ng-template #confirmDelete>
     <h3>Deleting {{list.listName}}</h3>

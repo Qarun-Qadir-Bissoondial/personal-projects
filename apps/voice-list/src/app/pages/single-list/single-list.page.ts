@@ -5,7 +5,7 @@ import { VoiceService } from '../../services/voice.service';
 import { MatRipple } from '@angular/material/core';
 import { List, State } from '../../list.reducer';
 import { Store } from '@ngrx/store';
-import { deleteList } from '../../list.actions';
+import { deleteList, editListName } from '../../list.actions';
 import { MatDialog } from '@angular/material/dialog';
 import { filter } from 'rxjs/operators';
 
@@ -69,6 +69,20 @@ export class SingleListPage implements OnDestroy {
         this.store.dispatch(deleteList({listName: this.list.listName}));
         this.router.navigateByUrl('/lists');
       });
+  }
+
+  editList(editTemplate: TemplateRef<any>) {
+    this.dialog.open(editTemplate)
+      .afterClosed()
+      .pipe(filter(response => !!response))
+      .subscribe((listName: string) => {
+
+        listName === this.list.listName
+          ? console.log('No changes')
+          : this.store.dispatch(editListName({oldListName: this.list.listName, newListName: listName}));
+
+
+      })
   }
 
   startListening() {

@@ -2,6 +2,10 @@ import { Action, createReducer, on } from '@ngrx/store';
 import { generateFakeList } from '../testing/fake-gen';
 import * as ListActions from './list.actions';
 
+function cloneObject<T> (obj: T, mode: 'shallow' | 'deep' = 'deep'): T {
+    return mode === 'shallow' ? Object.assign({}, obj) : JSON.parse(JSON.stringify(obj));
+}
+
 export interface List {
     listName: string;
     total: number;
@@ -70,7 +74,7 @@ const storeReducer = createReducer(
         const itemsOfList = state.items.allIds.filter(id => { state.items.byId[id].listName === meta.listName });
         console.log(itemsOfList);
 
-        const newState = JSON.parse(JSON.stringify(state));
+        const newState = cloneObject(state);
 
         for (const item of itemsOfList) {
             newState.items.allIds.splice(newState.items.allIds.indexOf(item), 1);
@@ -86,6 +90,30 @@ const storeReducer = createReducer(
         console.log(newState);
 
         return newState;
+    }),
+
+    on(ListActions.editListName, (state, meta) => {
+
+        const newState = cloneObject(state);
+        const { allIds, byId } = newState.lists;
+        const { oldListName, newListName } = meta;
+
+        // update allIds array in lists
+        allIds.splice(allIds.indexOf(oldListName), 1);
+        allIds.push(newListName);
+        
+        // update byId key in lists
+        byId[newListName] = {...cloneObject(byId[oldListName]), listName: newListName}; 
+        delete byId[oldListName];
+
+        newState.lists = {
+            byId,
+            allIds
+        }
+
+        console.log(newState);
+        return newState;
+
     }),
 
     on(ListActions.createItem, (state, meta) => {
