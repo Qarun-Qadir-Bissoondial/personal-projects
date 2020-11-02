@@ -1,4 +1,5 @@
 import { Component, TemplateRef } from '@angular/core';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
 import {  select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -6,6 +7,7 @@ import { filter } from 'rxjs/operators';
 import { createList } from '../../list.actions';
 import { List, State } from '../../list.reducer';
 import { selectLists } from '../../list.selectors';
+import { SingleListPage } from '../single-list/single-list.page';
 
 @Component({
   selector: 'app-lists',
@@ -18,7 +20,8 @@ export class ListsPage {
 
   constructor(
     private store: Store<{appState: State}>,
-    private dialog: MatDialog) {
+    private dialog: MatDialog,
+    private bottomSheet: MatBottomSheet) {
     this.lists$ = this.store.pipe(select(selectLists));
   }
 
@@ -30,6 +33,16 @@ export class ListsPage {
       .subscribe((newListName: string) => {
         this.store.dispatch(createList({listName: newListName}));
       })
+  }
+
+  openListDetais(listName: string) {
+    this.bottomSheet.open(SingleListPage, {
+      data: {
+        listName,
+      },
+      panelClass: 'fullscreen',
+      
+    })
   }
 
 }

@@ -1,13 +1,14 @@
-import { StorageService } from '../../services/storage.service';
-import { Component, OnDestroy, ChangeDetectorRef, ViewChild, TemplateRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnDestroy, ViewChild, TemplateRef, Inject } from '@angular/core';
 import { VoiceService } from '../../services/voice.service';
 import { MatRipple } from '@angular/material/core';
-import { List, State } from '../../list.reducer';
-import { Store } from '@ngrx/store';
+import { ListWithItems, State } from '../../list.reducer';
+import { select, Store } from '@ngrx/store';
 import { deleteList, editListName } from '../../list.actions';
 import { MatDialog } from '@angular/material/dialog';
-import { filter } from 'rxjs/operators';
+import { filter, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { selectSingleList } from '../../list.selectors';
+import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 
 @Component({
   selector: 'app-single-list',
@@ -17,28 +18,25 @@ import { filter } from 'rxjs/operators';
 export class SingleListPage implements OnDestroy {
   @ViewChild(MatRipple) ripple: MatRipple;
 
-  list: List;
+  list$: Observable<ListWithItems>;
+  listName: string;
   completedPercentage: number;
   listening: boolean;
   listeningTrigger;
 
   constructor(
-    private router: Router,
-    private storage: StorageService,
     private voice: VoiceService,
     private store: Store<{appState: State}>,
     private dialog: MatDialog,
-    private changeRef: ChangeDetectorRef) {
+    private bottomSheetRef: MatBottomSheetRef<SingleListPage>,
+    @Inject(MAT_BOTTOM_SHEET_DATA) public data: { listName: string }) {
 
-      const list = this.router.getCurrentNavigation().extras.state as List;
-      
-      this.list = !list
-        ? this.storage.get<List>('current-list')
-        : list;
+      this.listName = this.data.listName;
 
-      this.calculatePercentage();
-      this.storage.save('current-list', this.list);
-      this.toggleListening(false);
+      // @ts-ignore
+      this.list$ = this.store.pipe(select(selectSingleList, { listName: this.listName }), tap(console.log));
+      // this.calculatePercentage();
+      // this.toggleListening(false);
   }
 
   toggleListening(checked: boolean) {
@@ -60,29 +58,28 @@ export class SingleListPage implements OnDestroy {
     }
   }
 
-  deleteList(deleteTemplate: TemplateRef<any>) {
+  deleteList(deleteTemplate: TemplateRef<any>, listName: string) {
     this.dialog.open(deleteTemplate)
       .afterClosed()
       .pipe(filter(response => !!response))
       .subscribe(() => {
-        console.log('deleting list');
-        this.store.dispatch(deleteList({listName: this.list.listName}));
-        this.router.navigateByUrl('/lists');
+        this.store.dispatch(deleteList({listName}));
       });
   }
 
-  editList(editTemplate: TemplateRef<any>) {
+  editList(editTemplate: TemplateRef<any>, oldListName: string) {
     this.dialog.open(editTemplate)
       .afterClosed()
-      .pipe(filter(response => !!response))
+      .pipe(filter(response => (!!response) && (response !== oldListName) ))
       .subscribe((listName: string) => {
-
-        listName === this.list.listName
-          ? console.log('No changes')
-          : this.store.dispatch(editListName({oldListName: this.list.listName, newListName: listName}));
-
-
+        this.listName = listName;
+        this.store.dispatch(editListName({oldListName, newListName: listName}));
+        this.list$ = this.store.pipe(select(selectSingleList, { listName }));
       })
+  }
+
+  closeList() {
+    this.bottomSheetRef.dismiss();
   }
 
   startListening() {
@@ -125,9 +122,9 @@ export class SingleListPage implements OnDestroy {
     // this.voice.addCommands(commands).init();
   }
 
-  calculatePercentage() {
-    this.completedPercentage = (this.list.completed * 100) / (this.list.completed + this.list.pending);
-  }
+  // calculatePercentage() {
+  //   this.completedPercentage = (this.list.completed * 100) / (this.list.completed + this.list.pending);
+  // }
 
   // updateItem(itemName: string, value: boolean) {
   //   value

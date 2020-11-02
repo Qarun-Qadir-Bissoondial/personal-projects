@@ -1,99 +1,80 @@
-<header>
-    <div class="title">
-        <h2>{{list.listName}}</h2>
-        <div style = 'display: flex; align-items: center;'>
-            <mat-slide-toggle (change) = 'toggleListening($event.checked)' [checked] = 'listening'></mat-slide-toggle>
-            <i
-                class = 'material-icons'
-                style = 'pointer-events: none; margin-left: 10px;'
-                [style.color] = 'listening ? "red" : "black"'
-                matRipple
-                matRippleColor = 'red'
-                [matRippleRadius] = '20'
-                [matRippleUnbounded]="true" >mic</i>
+<ng-container *ngIf = 'list$ | async as list'>
+
+    <header>
+        <div class="title">
+            <h2>{{list.listName}}</h2>
+            <div style = 'display: flex; align-items: center;'>
+                <mat-slide-toggle (change) = 'toggleListening($event.checked)' [checked] = 'listening'></mat-slide-toggle>
+                <i
+                    class = 'material-icons'
+                    style = 'pointer-events: none; margin-left: 10px;'
+                    [style.color] = 'listening ? "red" : "black"'
+                    matRipple
+                    matRippleColor = 'red'
+                    [matRippleRadius] = '20'
+                    [matRippleUnbounded]="true" >mic</i>
+            </div>
         </div>
-    </div>
-   
-    <div class = 'list-info'>
-        <span> <mat-icon style = 'margin-right: 10px'>schedule</mat-icon> {{list.pending}}</span>
-        <span> <mat-icon style = 'margin-right: 10px'>done</mat-icon> {{list.completed}}</span>
-    </div>
-</header>
-
-<mat-progress-bar style = 'margin: 10px 0;' mode="determinate" [value]="completedPercentage"></mat-progress-bar>
-
-<main>
-    <p>Body goes here!</p>
-</main>
-
-<footer>
-    <div (click) = 'editList(editTemplate)' matRipple class="action edit" style = 'border-right: 1px solid #aaa;'>
-        <span>Edit</span>
-        <mat-icon>edit</mat-icon>
-    </div>
-    <div (click) = 'deleteList(confirmDelete)' matRipple class="action delete" style = 'color: red;'>
-        <span>Delete</span>
-        <mat-icon>delete</mat-icon>
-    </div>
-</footer>
-
-<ng-template #editTemplate>
-    <h3>Edit List Name</h3>
-
-    <mat-form-field>
-        <mat-label>List name</mat-label>
-        <input matInput #editInput required [value] = 'list.listName'>
-        <mat-error>List name is required!</mat-error>
-    </mat-form-field>
-
-    <div class="actions">
-        <button mat-raised-button color = 'primary' [mat-dialog-close] = 'editInput.value'>Update</button>
-        <button mat-raised-button color = 'warn' [mat-dialog-close]>Cancel</button>
-    </div>
-</ng-template>
-
-<ng-template #confirmDelete>
-    <h3>Deleting {{list.listName}}</h3>
-    <p>Are you sure? <span style = 'text-decoration: underline;'>This cannot be undone!</span></p>
-
-    <div class="actions">
-        <button mat-raised-button color = 'primary' [mat-dialog-close] = 'true'>Delete</button>
-        <button mat-raised-button color = 'warn' [mat-dialog-close] = 'false'>Cancel</button>
-    </div>
-</ng-template>
-
-<!-- <header>
-    <div class="title">
-        <h2>{{list.name}}</h2>
-        <div style = 'display: flex; align-items: center;'>
-            <mat-slide-toggle (change) = 'toggleListening($event.checked)' [checked] = 'listening'></mat-slide-toggle>
-            <i
-                class = 'material-icons'
-                style = 'pointer-events: none; margin-left: 10px;'
-                [style.color] = 'listening ? "red" : "black"'
-                matRipple
-                matRippleColor = 'red'
-                [matRippleRadius] = '20'
-                [matRippleUnbounded]="true" >mic</i>
+       
+        <div class = 'list-info'>
+            <span> <mat-icon style = 'margin-right: 10px'>schedule</mat-icon> {{list.pending}}</span>
+            <span> <mat-icon style = 'margin-right: 10px'>done</mat-icon> {{list.completed}}</span>
         </div>
-    </div>
-   
-    <div class = 'list-info'>
-        <span> <mat-icon style = 'margin-right: 10px'>schedule</mat-icon> {{list.pending}}</span>
-        <span> <mat-icon style = 'margin-right: 10px'>done</mat-icon> {{list.completed}}</span>
-    </div>
-</header>
+    </header>
+    
+    <mat-progress-bar style = 'margin: 10px 0;' mode="determinate" [value]="(list.completed / list.total) * 100"></mat-progress-bar>
 
+    <ng-container *ngIf = 'list.items.length > 0; else noListItems'>
+        <p>List items</p>
+    </ng-container>
 
-<section 
-    class = 'item-list'
-    [ngClass] = '{"completed": item.value}'
-    *ngFor = 'let item of list.items | keyvalue'
-    (click) = 'updateItem(item.key, !item.value)'>
-    <span style = 'margin-top: 6px'>{{item.key | titlecase}}</span>
+    <footer>
+        <div class="action close" (click) = 'closeList()'>
+            <span>Back</span>
+            <mat-icon>arrow_back</mat-icon>
+        </div>
+        <div (click) = 'editList(editTemplate, list.listName)' matRipple class="action edit" style = 'border-right: 1px solid #aaa;'>
+            <span>Edit</span>
+            <mat-icon>edit</mat-icon>
+        </div>
+        <div (click) = 'deleteList(confirmDelete, list.listName)' matRipple class="action delete" style = 'color: red;'>
+            <span>Delete</span>
+            <mat-icon>delete</mat-icon>
+        </div>
+    </footer>
 
-    <button [disableRipple] = 'true' mat-icon-button>
-        <mat-icon [ngClass] = '{"icon-completed": item.value}'>{{item.value ? "done" : "check_box_outline_blank"}}</mat-icon>
-    </button>
+    <ng-template #editTemplate>
+        <h3>Edit List Name</h3>
+    
+        <mat-form-field>
+            <mat-label>List name</mat-label>
+            <input matInput #editInput required [value] = 'list.listName'>
+            <mat-error>List name is required!</mat-error>
+        </mat-form-field>
+    
+        <div class="actions">
+            <button mat-raised-button color = 'primary' [mat-dialog-close] = 'editInput.value'>Update</button>
+            <button mat-raised-button color = 'warn' [mat-dialog-close]>Cancel</button>
+        </div>
+    </ng-template>
+    
+    <ng-template #confirmDelete>
+        <h3>Deleting {{list.listName}}</h3>
+        <p>Are you sure? <span style = 'text-decoration: underline;'>This cannot be undone!</span></p>
+    
+        <div class="actions">
+            <button mat-raised-button color = 'primary' [mat-dialog-close] = 'true'>Delete</button>
+            <button mat-raised-button color = 'warn' [mat-dialog-close] = 'false'>Cancel</button>
+        </div>
+    </ng-template>
 
-</section> -->
+    
+
+    <ng-template #noListItems>
+        <div class="actions">
+            <p>No items on list</p>
+            <button mat-raised-button color = 'primary'>Add list item</button>
+        </div>
+    </ng-template>
+
+</ng-container>

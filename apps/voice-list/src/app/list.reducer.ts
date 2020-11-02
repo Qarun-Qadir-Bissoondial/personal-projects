@@ -19,6 +19,10 @@ export interface Item {
     completed: boolean;
 }
 
+export interface ListWithItems extends List {
+    items: Item[];
+}
+
 export interface ListsInStore {
     byId: { [listName: string]: List },
     allIds: string[];

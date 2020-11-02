@@ -16,6 +16,10 @@ export class StorageService {
     return this.storage.setItem(key, JSON.stringify(value));
   }
 
+  saveString(key: string, value: string) {
+    return this.storage.setItem(key, value);
+  }
+
   delete(key: string): void {
     return this.storage.removeItem(key);
   }

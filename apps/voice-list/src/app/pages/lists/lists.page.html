@@ -4,8 +4,7 @@
             matRipple
             class = 'card'
             *ngFor = 'let list of lists'
-            [routerLink] = '"/list-details/" + list.listName'
-            [state] = 'list'>
+            (click) = 'openListDetais(list.listName)'>
             <h2>{{list.listName}}</h2>
         
             <section class="card-stats">

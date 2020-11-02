@@ -1,6 +1,13 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+.fullscreen {
+    max-height: inherit;
+    min-height: calc(100vh - 72px);
+    min-width: 100vw !important;
+    padding-bottom: 0;
+}
+
 h1, h2 {
     font-weight: 400;
 }
