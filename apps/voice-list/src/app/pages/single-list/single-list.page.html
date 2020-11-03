@@ -25,23 +25,25 @@
     <mat-progress-bar style = 'margin: 10px 0;' mode="determinate" [value]="(list.completed / list.total) * 100"></mat-progress-bar>
 
     <ng-container *ngIf = 'list.items.length > 0; else noListItems'>
-        <p>List items</p>
+        <p>{{list.items | json}}</p>
     </ng-container>
 
     <footer>
-        <div class="action close" (click) = 'closeList()'>
+        <div matRipple class="action close" (click) = 'closeList()'>
             <span>Back</span>
             <mat-icon>arrow_back</mat-icon>
         </div>
-        <div (click) = 'editList(editTemplate, list.listName)' matRipple class="action edit" style = 'border-right: 1px solid #aaa;'>
+        <div matRipple (click) = 'editList(editTemplate, list.listName)' matRipple class="action edit" style = 'border-right: 1px solid #aaa;'>
             <span>Edit</span>
             <mat-icon>edit</mat-icon>
         </div>
-        <div (click) = 'deleteList(confirmDelete, list.listName)' matRipple class="action delete" style = 'color: red;'>
+        <div matRipple (click) = 'deleteList(confirmDelete, list.listName)' matRipple class="action delete" style = 'color: red;'>
             <span>Delete</span>
             <mat-icon>delete</mat-icon>
         </div>
     </footer>
+
+   
 
     <ng-template #editTemplate>
         <h3>Edit List Name</h3>
@@ -73,8 +75,23 @@
     <ng-template #noListItems>
         <div class="actions">
             <p>No items on list</p>
-            <button mat-raised-button color = 'primary'>Add list item</button>
+            <button mat-raised-button color = 'primary' (click) = 'openAddListDialog(addListTemplate)'>Add list item</button>
         </div>
+
+        <ng-template #addListTemplate>
+            <h3>Add List Item</h3>
+    
+            <mat-form-field>
+                <mat-label>New Item Name</mat-label>
+                <input matInput #itemName required>
+                <mat-error>Name is required!</mat-error>
+            </mat-form-field>
+    
+            <div class="actions">
+                <button mat-raised-button color = 'primary' [mat-dialog-close] = 'itemName.value'>Add</button>
+                <button mat-raised-button color = 'warn' [mat-dialog-close]>Cancel</button>
+            </div>
+        </ng-template>
     </ng-template>
 
 </ng-container>

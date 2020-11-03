@@ -22,16 +22,3 @@ export const selectSingleList = createSelector(
         }
     }
 )
-
-// export const selectLists = createSelector(
-//     getLists,
-//     (state: ListsInStore) =>  {
-//         console.log(state);
-//         return state.allIds.map(id =>  { console.log(state.byId[id]); return state.byId[id]; })
-//     }
-// ); 
-
-// export const selectLists = createSelector(
-//     getLists,
-//     (state: ListsInStore) => state.allIds.map(id =>  { console.log(state.byId[id]); return state.byId[id]; })  
-// );

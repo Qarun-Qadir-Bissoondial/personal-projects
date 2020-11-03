@@ -5,7 +5,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     max-height: inherit;
     min-height: calc(100vh - 72px);
     min-width: 100vw !important;
-    padding-bottom: 0;
+    padding-bottom: 0 !important;
 }
 
 h1, h2 {

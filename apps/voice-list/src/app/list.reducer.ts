@@ -52,6 +52,7 @@ export const initialState: State = {
 };
 
 const createDefaultList = (listName: string): List => ({ listName, total: 0, pending: 0, completed: 0 });
+const createDefaultItem = (name: string, listName: string): Item => ({name, listName, completed: false });
 
 const storeReducer = createReducer(
     initialState,
@@ -120,16 +121,20 @@ const storeReducer = createReducer(
 
     }),
 
-    on(ListActions.createItem, (state, meta) => {
+    on(ListActions.createListItem, (state, meta) => {
 
-        const { itemName } = meta;
-        state.items.allIds =  state.items.allIds.concat(itemName);
-        state.items.byId = Object.assign(state.items.byId, { [itemName]: createDefaultList(itemName) });
-        return state;
-
+        const { itemName, listName } = meta;
+        const newItems = cloneObject(state.items, 'deep');
+        
+        newItems.allIds = newItems.allIds.concat(itemName);
+        newItems.byId = { ...newItems.byId, [itemName]: createDefaultItem(itemName, listName) };
+        
+        const newState = cloneObject(state, 'deep');
+        newState.items = Object.assign({}, newItems);
+        return newState;
     }),
 
-    on(ListActions.deleteItem, (state, meta) => {
+    on(ListActions.deleteListItem, (state, meta) => {
         
         const { itemName } = meta;
         const newState = Object.assign({}, state);
@@ -139,7 +144,7 @@ const storeReducer = createReducer(
         return newState;
     }),
 
-    on(ListActions.incompleteItem, (state, meta) => {
+    on(ListActions.markItemIncomplete, (state, meta) => {
 
         const { listName, itemName } = meta;
         state.lists.byId[listName].completed--;
@@ -148,7 +153,7 @@ const storeReducer = createReducer(
         return state;
     }),
 
-    on(ListActions.completeItem, (state, meta) => {
+    on(ListActions.markItemComplete, (state, meta) => {
 
         const { listName, itemName } = meta;
         state.lists.byId[listName].completed++;

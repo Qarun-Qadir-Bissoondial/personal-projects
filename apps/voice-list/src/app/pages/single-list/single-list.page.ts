@@ -3,7 +3,7 @@ import { VoiceService } from '../../services/voice.service';
 import { MatRipple } from '@angular/material/core';
 import { ListWithItems, State } from '../../list.reducer';
 import { select, Store } from '@ngrx/store';
-import { deleteList, editListName } from '../../list.actions';
+import { createListItem, deleteList, editListName } from '../../list.actions';
 import { MatDialog } from '@angular/material/dialog';
 import { filter, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -56,6 +56,21 @@ export class SingleListPage implements OnDestroy {
       clearInterval(this.listeningTrigger);
       this.voice.teardown();
     }
+  }
+
+  openAddListDialog(addItemTemplate: TemplateRef<any>) {
+    this.dialog.open(addItemTemplate)
+      .afterClosed()
+      .pipe(filter(response => !!response))
+      .subscribe(itemName => {
+
+        this.store.dispatch(createListItem({itemName, listName: this.listName}));
+
+      });
+  }
+
+  addListItem(itemName: string) {
+
   }
 
   deleteList(deleteTemplate: TemplateRef<any>, listName: string) {
