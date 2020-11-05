@@ -124,12 +124,12 @@ const storeReducer = createReducer(
     on(ListActions.createListItem, (state, meta) => {
 
         const { itemName, listName } = meta;
-        const newItems = cloneObject(state.items, 'deep');
+        const newItems = cloneObject(state.items);
         
         newItems.allIds = newItems.allIds.concat(itemName);
         newItems.byId = { ...newItems.byId, [itemName]: createDefaultItem(itemName, listName) };
         
-        const newState = cloneObject(state, 'deep');
+        const newState = cloneObject(state);
         newState.items = Object.assign({}, newItems);
         newState.lists.byId[listName].total++;
         newState.lists.byId[listName].pending++;
@@ -139,11 +139,21 @@ const storeReducer = createReducer(
 
     on(ListActions.deleteListItem, (state, meta) => {
         
-        const { itemName } = meta;
-        const newState = Object.assign({}, state);
+        const { listName, itemName } = meta;
+        const newState = cloneObject(state);
+        const item = newState.items.byId[itemName];
+
+        // updated list item count
+        const list = newState.lists.byId[listName];
+        list.total--;
+        item.completed
+        ? list.completed--
+        : list.pending--;
+
+        // remove item from state
         newState.items.allIds.splice(newState.items.allIds.indexOf(itemName));
         delete newState.items.byId[itemName];
-        
+
         return newState;
     }),
 

@@ -32,11 +32,15 @@
 
         <ng-container *ngFor = 'let item of list.items'>
 
-            <section class="item-list" [ngClass] = '{"completed": item.completed}' (click) = 'toggleCompletion(!item.completed, item.name)'>
+            <section class="item-list" [ngClass] = '{"completed": item.completed}'>
 
-                <span style = 'margin-top: 6px'>{{item.name | titlecase}}</span>
-                <button [disableRipple] = 'true' mat-icon-button>
+                <span  (click) = 'toggleCompletion(!item.completed, item.name)' style = 'margin-top: 6px; margin-right: auto;'>{{item.name | titlecase}}</span>
+                <button  (click) = 'toggleCompletion(!item.completed, item.name)' [disableRipple] = 'true' mat-icon-button>
                     <mat-icon [ngClass] = '{"icon-completed": item.completed}'>{{item.completed ? "done" : "check_box_outline_blank"}}</mat-icon>
+                </button>
+
+                <button (click) = 'deleteItem(item.name)' mat-icon-button>
+                    <mat-icon>delete</mat-icon>
                 </button>
 
             </section>

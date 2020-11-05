@@ -3,7 +3,7 @@ import { VoiceService } from '../../services/voice.service';
 import { MatRipple } from '@angular/material/core';
 import { ListWithItems, State } from '../../list.reducer';
 import { select, Store } from '@ngrx/store';
-import { createListItem, deleteList, editListName, markItemComplete, markItemIncomplete } from '../../list.actions';
+import { createListItem, deleteList, deleteListItem, editListName, markItemComplete, markItemIncomplete } from '../../list.actions';
 import { MatDialog } from '@angular/material/dialog';
 import { filter, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -101,6 +101,11 @@ export class SingleListPage implements OnDestroy {
         this.store.dispatch(editListName({oldListName, newListName: listName}));
         this.list$ = this.store.pipe(select(selectSingleList, { listName }));
       })
+  }
+
+  deleteItem(itemName: string) {
+    console.log(itemName);
+    this.store.dispatch(deleteListItem({listName: this.listName, itemName}))
   }
 
   closeList() {
