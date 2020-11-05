@@ -1,4 +1,4 @@
-<ng-container *ngIf = 'list$ | async as list'>
+<ng-container *ngIf = '(list$ | async) as list'>
 
     <header>
         <div class="title">
@@ -16,17 +16,35 @@
             </div>
         </div>
        
+       
+    </header>
+    
+    
+
+    <ng-container *ngIf = 'list.items.length > 0; else noListItems'>
+
         <div class = 'list-info'>
             <span> <mat-icon style = 'margin-right: 10px'>schedule</mat-icon> {{list.pending}}</span>
             <span> <mat-icon style = 'margin-right: 10px'>done</mat-icon> {{list.completed}}</span>
         </div>
-    </header>
-    
-    <mat-progress-bar style = 'margin: 10px 0;' mode="determinate" [value]="(list.completed / list.total) * 100"></mat-progress-bar>
 
-    <ng-container *ngIf = 'list.items.length > 0; else noListItems'>
-        <p>{{list.items | json}}</p>
+        <mat-progress-bar style = 'margin: 10px 0;' mode="determinate" [value]="(list.completed / list.total) * 100"></mat-progress-bar>
+
+        <ng-container *ngFor = 'let item of list.items'>
+
+            <section class="item-list" [ngClass] = '{"completed": item.completed}' (click) = 'toggleCompletion(!item.completed, item.name)'>
+
+                <span style = 'margin-top: 6px'>{{item.name | titlecase}}</span>
+                <button [disableRipple] = 'true' mat-icon-button>
+                    <mat-icon [ngClass] = '{"icon-completed": item.completed}'>{{item.completed ? "done" : "check_box_outline_blank"}}</mat-icon>
+                </button>
+
+            </section>
+
+        </ng-container>
     </ng-container>
+
+    <button style = 'max-width: 200px; margin: 1em auto' mat-raised-button color = 'primary' (click) = 'openAddListDialog(addListTemplate)'>Add list item</button>
 
     <footer>
         <div matRipple class="action close" (click) = 'closeList()'>
@@ -42,8 +60,6 @@
             <mat-icon>delete</mat-icon>
         </div>
     </footer>
-
-   
 
     <ng-template #editTemplate>
         <h3>Edit List Name</h3>
@@ -70,28 +86,23 @@
         </div>
     </ng-template>
 
-    
+    <ng-template #addListTemplate>
+        <h3>Add List Item</h3>
+
+        <mat-form-field>
+            <mat-label>New Item Name</mat-label>
+            <input matInput #itemName required>
+            <mat-error>Name is required!</mat-error>
+        </mat-form-field>
+
+        <div class="actions">
+            <button type = 'submit' mat-raised-button color = 'primary' [mat-dialog-close] = 'itemName.value'>Add</button>
+            <button mat-raised-button color = 'warn' [mat-dialog-close]>Cancel</button>
+        </div>
+    </ng-template>
 
     <ng-template #noListItems>
-        <div class="actions">
-            <p>No items on list</p>
-            <button mat-raised-button color = 'primary' (click) = 'openAddListDialog(addListTemplate)'>Add list item</button>
-        </div>
-
-        <ng-template #addListTemplate>
-            <h3>Add List Item</h3>
-    
-            <mat-form-field>
-                <mat-label>New Item Name</mat-label>
-                <input matInput #itemName required>
-                <mat-error>Name is required!</mat-error>
-            </mat-form-field>
-    
-            <div class="actions">
-                <button mat-raised-button color = 'primary' [mat-dialog-close] = 'itemName.value'>Add</button>
-                <button mat-raised-button color = 'warn' [mat-dialog-close]>Cancel</button>
-            </div>
-        </ng-template>
+        <p style = 'text-align: center;'>No items on list</p>
     </ng-template>
 
 </ng-container>

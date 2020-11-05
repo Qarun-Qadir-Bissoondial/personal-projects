@@ -131,6 +131,9 @@ const storeReducer = createReducer(
         
         const newState = cloneObject(state, 'deep');
         newState.items = Object.assign({}, newItems);
+        newState.lists.byId[listName].total++;
+        newState.lists.byId[listName].pending++;
+
         return newState;
     }),
 
@@ -147,19 +150,26 @@ const storeReducer = createReducer(
     on(ListActions.markItemIncomplete, (state, meta) => {
 
         const { listName, itemName } = meta;
-        state.lists.byId[listName].completed--;
-        state.lists.byId[listName].pending++;
-        state.items.byId[itemName].completed = false;
-        return state;
+        const newState = cloneObject(state);
+        newState.lists.byId[listName].completed--;
+        newState.lists.byId[listName].pending++;
+        newState.items.byId[itemName].completed = false;
+        return newState;
     }),
 
     on(ListActions.markItemComplete, (state, meta) => {
 
         const { listName, itemName } = meta;
-        state.lists.byId[listName].completed++;
-        state.lists.byId[listName].pending--;
-        state.items.byId[itemName].completed = true;
-        return state;
+        const newState = cloneObject(state);
+
+        const updatedList =  newState.lists.byId[listName];
+        updatedList.completed++;
+        updatedList.pending--;
+
+        const updatedItem = newState.items.byId[itemName];
+        updatedItem.completed = true;
+
+        return newState;
     })
 
 );
