@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SingleListPage } from './single-list.page';
 import { Router } from '@angular/router';
-import { generateFakeList } from '../../testing/fake-gen';
+import { generateFakeList } from 'apps/voice-list/src/testing/fake-gen';
 
 class RouterWithExtras {
   getCurrentNavigation() {

@@ -1,27 +1,27 @@
-import { Component, OnDestroy, ViewChild, TemplateRef, Inject } from '@angular/core';
+import { Component, OnDestroy, ViewChild, TemplateRef, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { VoiceService } from '../../services/voice.service';
 import { MatRipple } from '@angular/material/core';
 import { ListWithItems, State } from '../../list.reducer';
 import { select, Store } from '@ngrx/store';
 import { createListItem, deleteList, deleteListItem, editListName, markItemComplete, markItemIncomplete } from '../../list.actions';
 import { MatDialog } from '@angular/material/dialog';
-import { filter, tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { selectSingleList } from '../../list.selectors';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 
 @Component({
   selector: 'app-single-list',
   templateUrl: './single-list.page.html',
-  styleUrls: ['./single-list.page.css']
+  styleUrls: ['./single-list.page.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SingleListPage implements OnDestroy {
   @ViewChild(MatRipple) ripple: MatRipple;
 
   list$: Observable<ListWithItems>;
   listName: string;
-  completedPercentage: number;
-  listening: boolean;
+  listening: BehaviorSubject<boolean> = new BehaviorSubject(true);
   listeningTrigger;
 
   constructor(
@@ -32,15 +32,13 @@ export class SingleListPage implements OnDestroy {
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: { listName: string }) {
 
       this.listName = this.data.listName;
+      this.list$ = this.store.pipe(select(selectSingleList, { listName: this.listName }));
+      this.toggleListening(true);
 
-      // @ts-ignore
-      this.list$ = this.store.pipe(select(selectSingleList, { listName: this.listName }), tap(console.log));
-      // this.calculatePercentage();
-      // this.toggleListening(false);
   }
 
   toggleListening(checked: boolean) {
-    this.listening = checked;
+    this.listening.next(checked);
 
     if (checked) {
       this.listeningTrigger = setInterval(() => {
@@ -64,7 +62,7 @@ export class SingleListPage implements OnDestroy {
       .pipe(filter(response => !!response))
       .subscribe(itemName => {
 
-        this.store.dispatch(createListItem({itemName, listName: this.listName}));
+        this.store.dispatch(createListItem({ listName: this.listName, itemName }));
 
       });
   }
@@ -89,6 +87,7 @@ export class SingleListPage implements OnDestroy {
       .pipe(filter(response => !!response))
       .subscribe(() => {
         this.store.dispatch(deleteList({listName}));
+        this.bottomSheetRef.dismiss();
       });
   }
 
@@ -104,7 +103,6 @@ export class SingleListPage implements OnDestroy {
   }
 
   deleteItem(itemName: string) {
-    console.log(itemName);
     this.store.dispatch(deleteListItem({listName: this.listName, itemName}))
   }
 
@@ -113,111 +111,54 @@ export class SingleListPage implements OnDestroy {
   }
 
   startListening() {
-    // const add = (item: string) => { this.addItem(item); };
-    // const remove = (item: string) => {this.removeItem(item)};
-    // const markComplete = (item: string) => { this.markAsComplete(item) };
-    // const markIncomplete = (item: string) => { this.markAsIncomplete(item) };
-    // const stop = () => { this.voice.teardown(); this.listening = false; }
+    const add = (itemName: string) => {  this.store.dispatch(createListItem({listName: this.listName, itemName })); };
+    const remove = (itemName: string) => { this.store.dispatch(deleteListItem({listName: this.listName, itemName})) };
+    const markComplete = (item: string) => { this.markAsCompleted(item) };
+    const markIncomplete = (item: string) => { this.markAsIncomplete(item) };
+    const stop = () => { 
+      this.toggleListening(false);
+    }
+    const closeList = () => { this.bottomSheetRef.dismiss(); } 
 
-    // const commands = [
-    //   {
-    //     'stop listening': stop
-    //   },
-    //   {
-    //     'add :item': add,
-    //     'we need :item': add
-    //   },
-    //   {
-    //     'remove :item': remove,
-    //     'delete :item': remove
-    //   },
-    //   {
-    //     'check :item': markComplete,
-    //     'we got :item': markComplete,
-    //     'we have :item': markComplete
-    //   },
-    //   {
-    //     'uncheck :item': markIncomplete
-    //   },
-    //   {
-    //     'complete all': () => {
-    //       for (const item in this.list.items) {
-    //         this.markAsComplete(item);
-    //       }
-    //     }
-    //   }
-    // ];
+    const commands = [
+      {
+        'stop listening': stop
+      },
+      {
+        'close': closeList,
+        'exit': closeList
+      },
+      {
+        'add :item': add,
+        'we need :item': add
+      },
+      {
+        'remove :item': remove,
+        'delete :item': remove
+      },
+      {
+        'check :item': markComplete,
+        'we got :item': markComplete,
+        'we have :item': markComplete
+      },
+      {
+        'uncheck :item': markIncomplete
+      }
+      // {
+      //   'complete all': () => {
+      //     for (const item in this.list.items) {
+      //       this.markAsComplete(item);
+      //     }
+      //   }
+      // }
+    ];
 
     // @ts-ignore
-    // this.voice.addCommands(commands).init();
+    this.voice.addCommands(commands).init();
   }
-
-  // calculatePercentage() {
-  //   this.completedPercentage = (this.list.completed * 100) / (this.list.completed + this.list.pending);
-  // }
-
-  // updateItem(itemName: string, value: boolean) {
-  //   value
-  //   ? this.markAsComplete(itemName)
-  //   : this.markAsIncomplete(itemName);
-
-  // }
 
   ngOnDestroy(): void {
-    this.voice.teardown();
+    this.toggleListening(false);
   }
   
-  // addItem(itemName: string): void {
-  //   if (itemName in this.list.items) { return; }
-
-  //   this.list.items[itemName] = false;
-  //   this.list.pending++;
-  //   this.calculatePercentage();
-  //   console.log(this.list.items);
-  //   this.changeRef.detectChanges();
-  // }
-
-  // markAsComplete(itemName: string): void {
-  //   if (!(itemName in this.list.items)) { return; }    
-  //   if (this.list.items[itemName] === true) { return; }
-
-  //   this.list.items[itemName] = true;
-  //   this.list.pending--;
-  //   this.list.completed++;
-  //   this.calculatePercentage();
-  //   this.changeRef.detectChanges();
-  // }
-
-  // markAsIncomplete(itemName: string): void {
-  //   if (this.list.items[itemName] === false) { return; }
-  //   this.list.items[itemName] = false;
-  //   this.list.pending++;
-  //   this.list.completed--;
-  //   this.calculatePercentage();
-  //   this.changeRef.detectChanges();
-  // }
-
-  // removeItem(itemName: string): void {
-  //   if (!(itemName in this.list.items)) { return; }
-
-  //   const completed = this.list.items[itemName];
-
-  //   completed
-  //     ? this.list.completed--
-  //     : this.list.pending--;
-
-  //   delete this.list.items[itemName];
-  //   this.calculatePercentage();
-  //   this.changeRef.detectChanges();
-  // }
-
-  // toggle(itemName: string) {
-  //   if (!(itemName in this.list.items)) { return; }
-
-  //   console.log(itemName);
-  //   this.list.items[itemName]
-  //     ? this.markAsIncomplete(itemName)
-  //     : this.markAsComplete(itemName);
-  // }
-
 }

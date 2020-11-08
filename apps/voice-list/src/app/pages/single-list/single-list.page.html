@@ -4,11 +4,11 @@
         <div class="title">
             <h2>{{list.listName}}</h2>
             <div style = 'display: flex; align-items: center;'>
-                <mat-slide-toggle (change) = 'toggleListening($event.checked)' [checked] = 'listening'></mat-slide-toggle>
+                <mat-slide-toggle (change) = 'toggleListening($event.checked)' [checked] = 'listening | async'></mat-slide-toggle>
                 <i
                     class = 'material-icons'
                     style = 'pointer-events: none; margin-left: 10px;'
-                    [style.color] = 'listening ? "red" : "black"'
+                    [style.color] = '( listening | async ) ? "red" : "black"'
                     matRipple
                     matRippleColor = 'red'
                     [matRippleRadius] = '20'
@@ -19,8 +19,6 @@
        
     </header>
     
-    
-
     <ng-container *ngIf = 'list.items.length > 0; else noListItems'>
 
         <div class = 'list-info'>
