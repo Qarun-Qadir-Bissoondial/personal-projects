@@ -1,7 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
-
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.fullscreen {
+    max-height: inherit;
+    min-height: calc(100vh - 72px);
+    min-width: 100vw !important;
+    padding-bottom: 0 !important;
+}
 
 h1, h2 {
     font-weight: 400;
@@ -13,31 +18,27 @@ nav .mat-ink-bar {
 
 .card-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     row-gap: 10px;
     column-gap: 10px;
-    place-items: center;
+    /* place-items: center; */
 }
 
 .card {
     border-radius: 8px;
-    width: 200px;
+    /* width: 200px; */
     background-color: #F0F0F0;
     padding: 10px;
     cursor: pointer;
 }
 
-/* .mat-checkbox-layout {
-    width: 100%;
+.actions {
+    text-align: center;
 }
 
-.item-list .mat-checkbox-layout .mat-checkbox-label {
-    width: 100%;
+.actions button {
+    margin: 5px 10px;
 }
-
-.list-item .mat-checkbox-label-before .mat-checkbox-inner-container {
-    margin-right: 0;
-} */
 
 @media screen and (min-width: 768px) {
     .card-list {

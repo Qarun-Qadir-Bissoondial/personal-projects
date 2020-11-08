@@ -1,12 +1,10 @@
-export const generateFakeList = (name: string): List => {
+import { List } from '../app/list.reducer';
+
+export const generateFakeList = (listName: string): List => {
   return {
-      name,
-      completed: 1,
-      pending: 2,
-      items: {
-        'fish': true,
-        'eggs': false,
-        'milk': false
-    }
+      listName,
+      completed: 0,
+      pending: 0,
+      total: 0
   };
 }
