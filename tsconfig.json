@@ -27,12 +27,6 @@
       ],
       "@qarun-qb/*": [
         "libs/*"
-      ],
-      "@qarun-qb/nativescript": [
-        "xplat/nativescript/index.ts"
-      ],
-      "@qarun-qb/nativescript/*": [
-        "xplat/nativescript/*"
       ]
     },
     "rootDir": "."
@@ -40,11 +34,5 @@
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true
-  },
-  "exclude": [
-    "apps/nativescript-*"
-  ],
-  "includes": [
-    "xplat/**/*.{ios,android}.ts"
-  ]
+  }
 }
